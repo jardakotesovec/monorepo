@@ -1,0 +1,129 @@
+# OJS plugins
+[submodule "ojs/plugins/generic/customBlockManager"]
+	path = ojs/plugins/generic/customBlockManager
+	url = https://github.com/pkp/customBlockManager.git
+[submodule "ojs/plugins/generic/staticPages"]
+	path = ojs/plugins/generic/staticPages
+	url = https://github.com/pkp/staticPages.git
+[submodule "ojs/plugins/generic/tinymce"]
+	path = ojs/plugins/generic/tinymce
+	url = https://github.com/pkp/tinymce.git
+[submodule "ojs/plugins/generic/pdfJsViewer"]
+	path = ojs/plugins/generic/pdfJsViewer
+	url = https://github.com/pkp/pdfJsViewer.git
+[submodule "ojs/plugins/generic/lensGalley"]
+	path = ojs/plugins/generic/lensGalley
+	url = https://github.com/asmecher/lensGalley
+	branch = i1472-fix
+[submodule "ojs/plugins/generic/googleAnalytics"]
+	path = ojs/plugins/generic/googleAnalytics
+	url = https://github.com/pkp/googleAnalytics.git
+[submodule "ojs/plugins/blocks/makeSubmission"]
+	path = ojs/plugins/blocks/makeSubmission
+	url = https://github.com/pkp/makeSubmission.git
+[submodule "ojs/plugins/reports/reviewReport"]
+	path = ojs/plugins/reports/reviewReport
+	url = https://github.com/pkp/reviewReport
+[submodule "ojs/plugins/generic/citationStyleLanguage"]
+	path = ojs/plugins/generic/citationStyleLanguage
+	url = https://github.com/pkp/citationStyleLanguage.git
+[submodule "ojs/plugins/reports/counter/classes/COUNTER"]
+	path = ojs/plugins/reports/counter/classes/COUNTER
+	url = https://github.com/pkp/COUNTER.git
+[submodule "ojs/plugins/blocks/browse"]
+	path = ojs/plugins/blocks/browse
+	url = https://github.com/pkp/browse
+[submodule "ojs/plugins/generic/googleScholar"]
+	path = ojs/plugins/generic/googleScholar
+	url = https://github.com/pkp/googleScholar
+[submodule "ojs/plugins/generic/crossref"]
+	path = ojs/plugins/generic/crossref
+	url = https://github.com/pkp/crossref-ojs
+[submodule "ojs/plugins/generic/webFeed"]
+	path = ojs/plugins/generic/webFeed
+	url = https://github.com/pkp/webFeed.git
+[submodule "ojs/plugins/generic/jatsTemplate"]
+	path = ojs/plugins/generic/jatsTemplate
+	url = https://github.com/pkp/jatsTemplate
+[submodule "ojs/plugins/oaiMetadataFormats/oaiJats"]
+	path = ojs/plugins/oaiMetadataFormats/oaiJats
+	url = https://github.com/pkp/oaiJats
+[submodule "ojs/plugins/generic/pflPlugin"]
+	path = ojs/plugins/generic/pflPlugin
+	url = https://github.com/pkp/pflPlugin
+	branch = main
+[submodule "ojs/docs/manual"]
+	path = ojs/docs/manual
+	url = https://github.com/pkp/ojs-user-guide
+
+# OMP plugins
+[submodule "omp/plugins/generic/customBlockManager"]
+	path = omp/plugins/generic/customBlockManager
+	url = https://github.com/pkp/customBlockManager
+[submodule "omp/plugins/generic/staticPages"]
+	path = omp/plugins/generic/staticPages
+	url = https://github.com/pkp/staticPages
+[submodule "omp/plugins/generic/tinymce"]
+	path = omp/plugins/generic/tinymce
+	url = https://github.com/pkp/tinymce
+[submodule "omp/plugins/blocks/makeSubmission"]
+	path = omp/plugins/blocks/makeSubmission
+	url = https://github.com/pkp/makeSubmission.git
+[submodule "omp/plugins/reports/reviewReport"]
+	path = omp/plugins/reports/reviewReport
+	url = https://github.com/pkp/reviewReport
+[submodule "omp/plugins/generic/googleAnalytics"]
+	path = omp/plugins/generic/googleAnalytics
+	url = https://github.com/pkp/googleAnalytics
+[submodule "omp/plugins/generic/citationStyleLanguage"]
+	path = omp/plugins/generic/citationStyleLanguage
+	url = https://github.com/pkp/citationStyleLanguage
+[submodule "omp/plugins/generic/webFeed"]
+	path = omp/plugins/generic/webFeed
+	url = https://github.com/pkp/webFeed.git
+[submodule "omp/docs/manual"]
+	path = omp/docs/manual
+	url = https://github.com/pkp/omp-user-guide
+
+# OPS plugins
+[submodule "ops/plugins/generic/customBlockManager"]
+	path = ops/plugins/generic/customBlockManager
+	url = https://github.com/pkp/customBlockManager.git
+[submodule "ops/plugins/generic/tinymce"]
+	path = ops/plugins/generic/tinymce
+	url = https://github.com/pkp/tinymce.git
+[submodule "ops/plugins/generic/googleAnalytics"]
+	path = ops/plugins/generic/googleAnalytics
+	url = https://github.com/pkp/googleAnalytics.git
+[submodule "ops/plugins/generic/pdfJsViewer"]
+	path = ops/plugins/generic/pdfJsViewer
+	url = https://github.com/pkp/pdfJsViewer.git
+[submodule "ops/plugins/blocks/browse"]
+	path = ops/plugins/blocks/browse
+	url = https://github.com/pkp/browse
+[submodule "ops/plugins/generic/googleScholar"]
+	path = ops/plugins/generic/googleScholar
+	url = https://github.com/pkp/googleScholar
+[submodule "ops/plugins/generic/crossref"]
+	path = ops/plugins/generic/crossref
+	url = https://github.com/pkp/crossref-ops.git
+[submodule "ops/plugins/generic/citationStyleLanguage"]
+	path = ops/plugins/generic/citationStyleLanguage
+	url = https://github.com/pkp/citationStyleLanguage.git
+[submodule "ops/plugins/generic/webFeed"]
+	path = ops/plugins/generic/webFeed
+	url = https://github.com/pkp/webFeed.git
+[submodule "ops/plugins/generic/orcidProfile"]
+	path = ops/plugins/generic/orcidProfile
+	url = https://github.com/pkp/orcidProfile.git
+[submodule "ops/docs/manual"]
+	path = ops/docs/manual
+	url = https://github.com/pkp/ops-user-guide
+
+# pkp-lib submodules
+[submodule "pkp-lib/lib/counterBots"]
+	path = pkp-lib/lib/counterBots
+	url = https://github.com/atmire/COUNTER-Robots.git
+[submodule "pkp-lib/lib/creditRoles"]
+	path = pkp-lib/lib/creditRoles
+	url = https://github.com/contributorshipcollaboration/credit-translation.git
