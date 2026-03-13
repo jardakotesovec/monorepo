@@ -1,0 +1,881 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-13T08:00:00+02:00\n"
+"PO-Revision-Date: 2019-11-13T08:00:00+02:00\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "manager.distribution.access"
+msgstr "Access"
+
+msgid "manager.distribution.copyrightYearBasis.description"
+msgstr ""
+"Choose how a default copyright date is selected for an preprint . This "
+"default can be overridden on a case-by-case basis."
+
+msgid "manager.distribution.copyrightYearBasis.submission"
+msgstr "Use the preprint's posted date"
+
+msgid "manager.distribution.publishingMode"
+msgstr "Posting Mode"
+
+msgid "manager.distribution.publishingMode.none"
+msgstr "OPS will not be used to post the server's contents online."
+
+msgid "manager.distribution.publishingMode.openAccess"
+msgstr "The server will provide open access to its contents."
+
+msgid "doi.manager.settings.doiSuffixLegacy"
+msgstr ""
+"Use default patterns.<br />%j.%a for preprints<br />%j.%a.g%g for galleys."
+
+msgid "doi.manager.settings.doiCreationTime.copyedit"
+msgstr "Upon reaching the production stage"
+
+msgid "doi.manager.settings.doiVersioning.description"
+msgstr ""
+"Assign a new DOI to each publication version? Most preprint servers will "
+"want to use the default option (yes) to ensure preprint versions are "
+"correctly assigned DOIs."
+
+msgid "doi.manager.settings.doiVersioning.yes"
+msgstr "Yes, assign a unique DOI to every version of a preprint."
+
+msgid "doi.manager.settings.doiVersioning.no"
+msgstr "No, all versions of a preprint should have the same DOI."
+
+msgid "manager.language.ui"
+msgstr "UI"
+
+msgid "manager.language.submissions"
+msgstr "Submissions"
+
+msgid "manager.language.forms"
+msgstr "Forms"
+
+msgid "manager.language.confirmDefaultSettingsOverwrite"
+msgstr ""
+"This will replace any locale-specific server settings you had for this locale"
+
+msgid "manager.people.allUsers"
+msgstr "All Enrolled Users"
+
+msgid "manager.people.confirmRemove"
+msgstr ""
+"Remove this user from this server? This action will unenroll the user from "
+"all roles within this server."
+
+msgid "manager.sections.abstractsNotRequired"
+msgstr "Do not require abstracts"
+
+msgid "manager.sections.confirmDelete"
+msgstr "Are you sure you want to permanently delete this section?"
+
+msgid "manager.sections.alertDelete"
+msgstr ""
+"Before this section can be deleted, you must move preprints posted within it "
+"into other section."
+
+msgid "manager.sections.create"
+msgstr "Create Section"
+
+msgid "manager.sections.editorRestriction"
+msgstr "Items can only be submitted by Managers and Moderators."
+
+msgid "manager.sections.confirmDeactivateSection.error"
+msgstr ""
+"At least one section must be active. Visit the workflow settings to disable "
+"all submissions to this server."
+
+msgid "manager.sections.form.abbrevRequired"
+msgstr "An abbreviated title is required for the section"
+
+msgid "manager.setup.form.section.pathRequired"
+msgstr "An URL path is required for the section"
+
+msgid "manager.sections.identifyType"
+msgstr "Identify items posted in this section as a(n)"
+
+msgid "manager.sections.identifyTypeExamples"
+msgstr "(For example etc.)"
+
+msgid "manager.sections.policy"
+msgstr "Section Policy"
+
+msgid "manager.sections.submissionIndexing"
+msgstr "Will not be included in the indexing of the server"
+
+msgid "manager.sections.wordCount"
+msgstr "Word Count"
+
+msgid "manager.sections.wordCountInstructions"
+msgstr "Limit abstract word counts for this section (0 for no limit)"
+
+msgid "manager.payment.options.enablePayments"
+msgstr ""
+"Payments will be enabled for this server. Note that users will be required "
+"to log in to make payments."
+
+msgid "manager.setup"
+msgstr "Server Settings"
+
+msgid "manager.setup.useStyleSheet"
+msgstr "Server style sheet"
+
+msgid "manager.setup.announcements"
+msgstr "Announcements"
+
+msgid "manager.setup.announcementsIntroduction"
+msgstr "Introduction"
+
+msgid "manager.setup.announcementsIntroduction.description"
+msgstr ""
+"Enter any information you would like to appear on your announcements page."
+
+#, fuzzy
+msgid "manager.setup.authorScreening"
+msgstr "Author Screening"
+
+msgid "manager.setup.disableUserRegistration"
+msgstr "The Server Manager will register all user accounts."
+
+msgid "manager.setup.emailBounceAddress"
+msgstr "Bounce Address"
+
+msgid "manager.setup.emailBounceAddress.description"
+msgstr ""
+"Any undeliverable emails will result in an error message to this address."
+
+msgid "manager.setup.emailBounceAddress.disabled"
+msgstr ""
+"In order to send undeliverable emails to a bounce address, the site "
+"administrator must enable the <code>allow_envelope_sender</code> option in "
+"the site configuration file. Server configuration may be required, as "
+"indicated in the OPS documentation."
+
+msgid "manager.setup.emailSignature"
+msgstr "Signature"
+
+msgid "manager.setup.emailSignature.description"
+msgstr ""
+"Emails sent automatically on behalf of the preprint server will have the "
+"following signature added."
+
+msgid "manager.setup.enableAnnouncements.enable"
+msgstr "Enable announcements"
+
+msgid "manager.setup.enableAnnouncements.description"
+msgstr ""
+"Announcements may be published to inform readers of server news and events. "
+"Published announcements will appear on the Announcements page."
+
+msgid "manager.setup.numAnnouncementsHomepage"
+msgstr "Display on Homepage"
+
+msgid "manager.setup.numAnnouncementsHomepage.description"
+msgstr ""
+"How many announcements to display on the homepage. Leave this empty to "
+"display none."
+
+msgid "manager.setup.enableDois.description"
+msgstr ""
+"Allow Digital Object Identifiers (DOIs) to assigned to works published on "
+"this server."
+
+msgid "doi.manager.settings.doiObjectsRequired"
+msgstr ""
+"Select the types of work published on this server that should be assigned "
+"DOIs. Most preprint servers assign DOIs to preprints, but you may wish to "
+"assign DOIs to preprint galleys as well."
+
+msgid "manager.setup.enableUserRegistration"
+msgstr "Visitors can register a user account with the server."
+
+msgid "manager.setup.identity"
+msgstr "Preprint Server Identity"
+
+msgid "manager.setup.information"
+msgstr "Information"
+
+msgid "manager.setup.information.description"
+msgstr ""
+"Brief descriptions of the server for librarians and prospective authors and "
+"readers. These are made available in the site's sidebar when the Information "
+"block has been added."
+
+msgid "manager.setup.information.forAuthors"
+msgstr "For Authors"
+
+msgid "manager.setup.information.forLibrarians"
+msgstr "For Librarians"
+
+msgid "manager.setup.information.forReaders"
+msgstr "For Readers"
+
+msgid "manager.setup.itemsPerPage"
+msgstr "Items per page"
+
+msgid "manager.setup.itemsPerPage.description"
+msgstr ""
+"Limit the number of items (for example, submissions, users, or editing "
+"assignments) to show in a list before showing subsequent items in another "
+"page."
+
+msgid "manager.setup.serverAbbreviation"
+msgstr "Server Abbreviation"
+
+msgid "manager.setup.contextSummary"
+msgstr "Server Summary"
+
+msgid "manager.setup.contextSummary.description"
+msgstr "Offer a brief description of your server to provide insight into its content and purpose."
+
+msgid "manager.setup.contextAbout"
+msgstr "About the Server"
+
+msgid "manager.setup.contextAbout.description"
+msgstr ""
+"Include any information about your server which may be of interest to "
+"readers or authors. This could include your open access policy, the focus "
+"and scope of the server, policies on moderation and screening, copyright "
+"notice, sponsorship disclosure, history of the server and a privacy "
+"statement."
+
+msgid "manager.setup.contextInitials"
+msgstr "Server initials"
+
+msgid "manager.setup.selectCountry"
+msgstr ""
+"Select the country where this server is located, or the country of the "
+"mailing address for the server or publisher."
+
+msgid "manager.setup.serverThumbnail"
+msgstr "Server thumbnail"
+
+msgid "manager.setup.serverThumbnail.description"
+msgstr ""
+"A small logo or representation of the server that can be used in lists of "
+"servers."
+
+msgid "manager.setup.contextTitle"
+msgstr "Server title"
+
+msgid "manager.setup.lists"
+msgstr "Lists"
+
+msgid "manager.setup.numPageLinks"
+msgstr "Page links"
+
+msgid "manager.setup.numPageLinks.description"
+msgstr "Limit the number of links to display to subsequent pages in a list."
+
+msgid "manager.setup.restrictPreprintAccess"
+msgstr "Users must be registered and log in to view open access content."
+
+msgid "manager.setup.restrictSiteAccess"
+msgstr "Users must be registered and log in to view the server site."
+
+msgid "manager.setup.searchEngineIndexing"
+msgstr "Search Indexing"
+
+msgid "manager.setup.searchEngineIndexing.description"
+msgstr ""
+"Help search engines like Google discover and display your site. You are "
+"encouraged to submit your <a href=\"{$sitemapUrl}\" target=\"_blank"
+"\">sitemap</a>."
+
+msgid "manager.setup.searchDescription.description"
+msgstr ""
+"Provide a brief description (50-300 characters) of the server which search "
+"engines can display when listing the server in search results."
+
+msgid "manager.setup.siteAccess.view"
+msgstr "Site Access"
+
+msgid "manager.setup.siteAccess.viewContent"
+msgstr "View Preprint Content"
+
+msgid "manager.setup.sponsoringOrganization"
+msgstr "Sponsoring organization"
+
+msgid "manager.setup.disableSubmissions.description"
+msgstr ""
+"Prevent users from submitting new preprints to the server. Submissions can "
+"be disabled for individual server sections on the <a href=\"{$url}\">server "
+"sections</a> settings page."
+
+msgid "manager.setup.disableSubmissions.notAccepting"
+msgstr ""
+"This server is not accepting submissions at this time. Visit the workflow "
+"settings to allow submissions."
+
+msgid "manager.setup.enableOai"
+msgstr "Enable OAI"
+
+msgid "manager.setup.enableOai.description"
+msgstr ""
+"Provide metadata to third-party indexing services through the <a href="
+"\"https://www.openarchives.org/\">Open Archives Initiative</a>."
+
+msgid "manager.setup.userRegistration"
+msgstr "User Registration"
+
+msgid "manager.statistics.statistics"
+msgstr "Server Statistics"
+
+msgid "manager.statistics.statistics.preprintViews"
+msgstr "Preprint View Counts (for Authors only)"
+
+msgid "manager.statistics.statistics.count.accept"
+msgstr "Accept"
+
+msgid "manager.statistics.statistics.count.decline"
+msgstr "Decline"
+
+msgid "manager.statistics.statistics.count.revise"
+msgstr "Resubmit"
+
+msgid "manager.statistics.statistics.daysToPublication"
+msgstr "Days to preprint being posted"
+
+msgid "manager.statistics.statistics.itemsPublished"
+msgstr "Items posted"
+
+msgid "manager.statistics.statistics.makePublic"
+msgstr "Check items to be made available to readers in About the Server."
+
+msgid "manager.statistics.statistics.note"
+msgstr ""
+"Note: Percentages for peer reviewed submissions may not add up to 100%, as "
+"items resubmitted are either accepted, declined, or still in process."
+
+msgid "manager.statistics.statistics.numSubmissions"
+msgstr "Total submissions"
+
+msgid "manager.statistics.statistics.registeredReaders"
+msgstr "Registered readers"
+
+msgid "manager.statistics.reports.defaultReport.preprintDownloads"
+msgstr "Preprint file downloads"
+
+msgid "manager.statistics.reports.defaultReport.preprintAbstract"
+msgstr "Preprint abstract page views"
+
+msgid "manager.statistics.reports.defaultReport.serverIndexPageViews"
+msgstr "Server main page views"
+
+msgid "grid.category.path"
+msgstr "Path"
+
+msgid "manager.publication.library"
+msgstr "Preprint Server Library"
+
+msgid "manager.setup.resetPermissions"
+msgstr "Reset Preprint Permissions"
+
+msgid "manager.setup.resetPermissions.confirm"
+msgstr ""
+"Are you sure you wish to reset permissions data for all preprints? This "
+"action can not be undone."
+
+msgid "manager.setup.resetPermissions.description"
+msgstr ""
+"Remove the copyright statement and license information for every posted "
+"preprint, reverting them to the server's current default settings. This will "
+"permanently remove all prior copyright and licensing information attached to "
+"preprints. In some cases, you may not be legally permitted to re-license "
+"work that has been posted under a different license. Please take caution "
+"when using this tool and consult legal expertise if you are unsure what "
+"rights you hold over the preprints posted in your server."
+
+msgid "manager.setup.resetPermissions.success"
+msgstr "Preprint permissions were successfully reset."
+
+msgid "grid.genres.title.short"
+msgstr "Components"
+
+msgid "grid.genres.title"
+msgstr "Preprint Components"
+
+msgid "plugins.importexport.common.settings"
+msgstr "Settings"
+
+msgid "plugins.importexport.common.settings.DOIPluginSettings"
+msgstr "DOI Plugin Settings"
+
+msgid "plugins.importexport.common.export.preprints"
+msgstr "Preprints"
+
+msgid "plugins.importexport.common.missingRequirements"
+msgstr "Plugin requirements not met"
+
+msgid "plugins.importexport.common.error.DOIsNotAvailable"
+msgstr ""
+"In order to use this plugin please go to the \"Public Identifier\" plugin "
+"category, enable and configure the DOI plugin and specify a valid DOI prefix "
+"there."
+
+msgid "plugins.importexport.common.error.pluginNotConfigured"
+msgstr "The plugin is not fully set up."
+
+msgid "plugins.importexport.common.settings.form.password"
+msgstr "Password"
+
+msgid "plugins.importexport.common.status.any"
+msgstr "Any Status"
+
+msgid "plugins.importexport.common.status.notDeposited"
+msgstr "Not Deposited"
+
+msgid "plugins.importexport.common.status.markedRegistered"
+msgstr "Marked registered"
+
+msgid "plugins.importexport.common.status.registered"
+msgstr "Registered"
+
+msgid "plugins.importexport.common.action"
+msgstr "Action"
+
+msgid "plugins.importexport.common.action.export"
+msgstr "Export"
+
+msgid "plugins.importexport.common.action.markRegistered"
+msgstr "Mark registered"
+
+msgid "plugins.importexport.common.action.register"
+msgstr "Register"
+
+msgid "plugins.importexport.common.validation"
+msgstr "Validate XML before the export and registration."
+
+msgid "plugins.importexport.common.error.noObjectsSelected"
+msgstr "No objects selected."
+
+msgid "plugins.importexport.common.error.validation"
+msgstr "Could not convert selected objects."
+
+msgid "plugins.importexport.common.invalidXML"
+msgstr "Invalid XML:"
+
+msgid "plugins.importexport.common.export.error.outputFileNotWritable"
+msgstr "The output file {$param} is not writable."
+
+msgid "plugins.importexport.common.register.error.mdsError"
+msgstr ""
+"Registration was not successful! The DOI registration server returned an "
+"error: '{$param}'."
+
+msgid "plugins.importexport.common.register.success"
+msgstr "Registration successful!"
+
+msgid "plugins.importexport.common.senderTask.warning.noDOIprefix"
+msgstr "DOI prefix is missing for the server with the path {$path}."
+
+msgid "plugins.importexport.common.error.unknownObjects"
+msgstr "The specified objects could not be found."
+
+msgid "stats.contextStats"
+msgstr "Server Stats"
+
+msgid "stats.context.tooltip.text"
+msgstr "Number of visitors viewing the server's index page."
+
+msgid "stats.context.tooltip.label"
+msgstr "About server statistics"
+
+msgid "stats.context.downloadReport.description"
+msgstr ""
+"Download a CSV/Excel spreadsheet with usage statistics for this server "
+"matching the following parameters."
+
+msgid "stats.context.downloadReport.downloadContext.description"
+msgstr "The number of server's index page views."
+
+msgid "stats.context.downloadReport.downloadContext"
+msgstr "Download Server"
+
+msgid "stats.publications.downloadReport.description"
+msgstr ""
+"Download a CSV/Excel spreadsheet with usage statistics for preprints "
+"matching the following parameters."
+
+msgid "stats.publications.downloadReport.downloadSubmissions"
+msgstr "Download Preprints"
+
+msgid "stats.publications.downloadReport.downloadSubmissions.description"
+msgstr "The number of abstract views and file downloads for each preprint."
+
+msgid "stats.publicationStats"
+msgstr "Preprint Stats"
+
+msgid "stats.publications.details"
+msgstr "Preprint Details"
+
+msgid "stats.publications.none"
+msgstr ""
+"No preprints were found with usage statistics matching these parameters."
+
+msgid "stats.publications.totalAbstractViews.timelineInterval"
+msgstr "Total abstract views by date"
+
+msgid "stats.publications.totalGalleyViews.timelineInterval"
+msgstr "Total file views by date"
+
+msgid "stats.publications.countOfTotal"
+msgstr "{$count} of {$total} preprints"
+
+msgid "stats.publications.abstracts"
+msgstr "Abstracts"
+
+msgid "manager.setup.notifications.copySubmissionAckPrimaryContact.description"
+msgstr ""
+"Send a copy of the submission acknowledgement email to this preprint "
+"server's primary contact."
+
+msgid ""
+"manager.setup.notifications.copySubmissionAckPrimaryContact.disabled."
+"description"
+msgstr ""
+"No primary contact has been defined for this preprint server. You can enter "
+"a primary contact in the <a href=\"{$url}\">preprint server settings</a>"
+
+msgid "emailTemplate.variable.context.contextName"
+msgstr "The server's name"
+
+msgid "emailTemplate.variable.context.contextUrl"
+msgstr "The URL to the server's homepage"
+
+msgid "emailTemplate.variable.context.contactName"
+msgstr "The name of the server's primary contact"
+
+msgid "emailTemplate.variable.context.contextSignature"
+msgstr "The server's email signature for automated emails"
+
+msgid "emailTemplate.variable.context.principalContactSignature"
+msgstr "The server's email signature for automated emails"
+
+msgid "emailTemplate.variable.context.contactEmail"
+msgstr "The email address of the server's primary contact"
+
+msgid "emailTemplate.variable.context.mailingAddress"
+msgstr "The mailing address of the server"
+
+msgid "emailTemplate.variable.queuedPayment.itemName"
+msgstr "The name of the type of payment"
+
+msgid "emailTemplate.variable.queuedPayment.itemCost"
+msgstr "The payment amount"
+
+msgid "emailTemplate.variable.queuedPayment.itemCurrencyCode"
+msgstr "The currency of the payment amount, such as USD"
+
+msgid "emailTemplate.variable.site.siteTitle"
+msgstr "Name of the website when more than one server is hosted"
+
+msgid "emailTemplate.variable.statisticsReportNotify.publicationStatsLink"
+msgstr "The link to the preprints statistics page"
+
+msgid "mailable.decision.accept.notifyAuthor.description"
+msgstr ""
+"This email notifies the author that their preprint has been accepted for "
+"posting."
+
+msgid "mailable.statisticsReportNotify.description"
+msgstr ""
+"This email is automatically sent monthly to moderators and server managers to "
+"provide them a system health overview."
+
+msgid "mailable.validateEmailContext.name"
+msgstr "Validate Email (Server Registration)"
+
+msgid "mailable.validateEmailContext.description"
+msgstr ""
+"This email is automatically sent to a new user when they register with the "
+"server when the settings require the email address to be validated."
+
+msgid "doi.displayName"
+msgstr "DOI"
+
+msgid "doi.manager.displayName"
+msgstr "DOIs"
+
+msgid "doi.description"
+msgstr ""
+"This plugin enables the assignment of the Digital Object Identifiers to "
+"preprints and galleys in OPS."
+
+msgid "doi.manager.submissionDois"
+msgstr "Preprint DOIs"
+
+msgid "doi.readerDisplayName"
+msgstr "DOI"
+
+msgid "doi.manager.settings.description"
+msgstr ""
+"Please configure the DOI plugin to be able to manage and use DOIs in OPS:"
+
+msgid "doi.manager.settings.explainDois"
+msgstr ""
+"Please select the publishing objects that will have Digital Object "
+"Identifiers (DOI) assigned:"
+
+msgid "doi.manager.settings.galleysWithDescription"
+msgstr "Preprint galleys, such as a published PDF"
+
+msgid "doi.manager.settings.enableRepresentationDoi"
+msgstr "Preprint Galleys"
+
+msgid "doi.manager.settings.publicationDoiAutoAssign"
+msgstr "Automatic assignment"
+
+msgid "doi.manager.settings.explainpublicationDoiAutoAssign"
+msgstr "Automatically assign DOI for the following objects when created:"
+
+msgid "doi.manager.settings.doiPrefix"
+msgstr "DOI Prefix"
+
+msgid "doi.manager.settings.doiPrefixPattern"
+msgstr "The DOI prefix is mandatory and must be in the form 10.xxxx."
+
+msgid "doi.manager.settings.doiSuffixPattern"
+msgstr ""
+"Enter a custom suffix pattern for each publication type. The custom suffix "
+"pattern may use the following symbols to generate a suffix:<br><br> <code>%j."
+"%a</code> Preprints<br> <code>%j.%a.g%g</code> Galleys<br><br> Beware that "
+"custom suffix patterns often lead to problems generating and depositing "
+"DOIs. When using a custom suffix pattern, carefully test that editors can "
+"generate DOIs and deposit them to a registration agency like Crossref. "
+
+msgid "doi.manager.settings.doiSuffixPattern.example"
+msgstr ""
+"For example, %j.%a could create a DOI such as 10.1234/server_initials.12345"
+
+msgid "doi.manager.settings.doiSuffixPattern.submissions"
+msgstr "for preprints"
+
+msgid "doi.manager.settings.doiSuffixPattern.representations"
+msgstr "for galleys"
+
+msgid "doi.manager.settings.doiSubmissionSuffixPatternRequired"
+msgstr "Please enter the DOI suffix pattern for preprints."
+
+msgid "doi.manager.settings.doiRepresentationSuffixPatternRequired"
+msgstr "Please enter the DOI suffix pattern for galleys."
+
+msgid "doi.manager.settings.doiReassign"
+msgstr "Reassign DOIs"
+
+msgid "doi.manager.settings.doiReassign.description"
+msgstr ""
+"If you change your DOI configuration, DOIs that have already been assigned "
+"will not be affected. Once the DOI configuration is saved, use this button "
+"to clear all existing DOIs so that the new settings will take effect with "
+"existing objects."
+
+msgid "doi.manager.settings.doiReassign.confirm"
+msgstr "Are you sure you wish to delete all existing DOIs?"
+
+msgid "doi.manager.settings.doiAssignServerWide"
+msgstr "Assign DOIs"
+
+msgid "doi.manager.settings.doiAssignServerWide.description"
+msgstr ""
+"Assign DOIs to all published server objects that have not been assigned "
+"DOIs. This action can not be used with the individual suffix configuration. "
+"If you have modified the DOI configuration above, please save your changes "
+"before initiating this action. Assigning DOIs may take a long time, "
+"depending on the number of published objects in the server."
+
+msgid "doi.manager.settings.doiAssignServerWide.confirm"
+msgstr ""
+"Are you sure you wish to assign DOIs to all published objects that have not "
+"been assigned DOIs?"
+
+msgid "doi.manager.settings.registrationAgency"
+msgstr "Registration Agency"
+
+msgid "doi.manager.settings.registrationAgency.description"
+msgstr ""
+"Please select the registration agency you would like to use when depositing "
+"DOIs."
+
+msgid "doi.manager.settings.registrationAgency.none"
+msgstr "None"
+
+msgid "doi.editor.doi"
+msgstr "DOI"
+
+msgid "doi.editor.doi.description"
+msgstr "The DOI must begin with {$prefix}."
+
+msgid "doi.editor.doi.assignDoi"
+msgstr "Assign"
+
+msgid "doi.editor.doiObjectTypeSubmission"
+msgstr "preprint"
+
+msgid "doi.editor.doiObjectTypeRepresentation"
+msgstr "galley"
+
+msgid "doi.editor.customSuffixMissing"
+msgstr "The DOI cannot be assigned because the custom suffix is missing."
+
+msgid "doi.editor.missingParts"
+msgstr ""
+"You can not generate a DOI because one or more parts of the DOI pattern are "
+"missing data."
+
+msgid "doi.editor.patternNotResolved"
+msgstr "The DOI cannot be assigned because it contains an unresolved pattern."
+
+msgid "doi.editor.canBeAssigned"
+msgstr ""
+"What you see is a preview of the DOI. Select the checkbox and save the form "
+"to assign the DOI."
+
+msgid "doi.editor.assigned"
+msgstr "The DOI is assigned to this {$pubObjectType}."
+
+msgid "doi.editor.doiSuffixCustomIdentifierNotUnique"
+msgstr ""
+"The given DOI suffix is already in use for another published item. Please "
+"enter a unique DOI suffix for each item."
+
+msgid "doi.editor.clearObjectsDoi"
+msgstr "Clear"
+
+msgid "doi.editor.clearObjectsDoi.confirm"
+msgstr "Are you sure you wish to delete the existing DOI?"
+
+msgid "doi.editor.assignDoi"
+msgstr "Assign the DOI {$pubId} to this {$pubObjectType}"
+
+msgid "doi.editor.assignDoi.emptySuffix"
+msgstr "The DOI cannot be assigned because the custom suffix is missing."
+
+msgid "doi.editor.assignDoi.pattern"
+msgstr ""
+"The DOI {$pubId} cannot be assigned because it contains an unresolved "
+"pattern."
+
+msgid "doi.editor.assignDoi.assigned"
+msgstr ""
+"The DOI {$pubId} has been assigned. To edit the DOI, visit the <a href="
+"\"{$doiManagementLink}\">DOI Management page</a>."
+
+msgid "doi.editor.assignDoi.toBeAssigned"
+msgstr "The DOI {$pubId} will be assigned on publication."
+
+msgid "doi.editor.missingPrefix"
+msgstr "The DOI must begin with {$doiPrefix}."
+
+msgid "doi.editor.preview.publication"
+msgstr "The DOI for this publication will be {$doi}."
+
+msgid "doi.editor.preview.publication.none"
+msgstr "A DOI has not been assigned to this publication."
+
+msgid "doi.editor.preview.galleys"
+msgstr "Galley: {$galleyLabel}"
+
+msgid "doi.editor.preview.objects"
+msgstr "Item"
+
+msgid "api.galley.403.publicationDidNotMatch"
+msgstr "The galley that you requested is not part of this publication."
+
+msgid "api.galley.403.canEditPublishedDoi"
+msgstr "Only DOIs can be edited after a publication/galley has been published"
+
+msgid "api.issue.400.invalidDoi"
+msgstr "The submitted DOI is not valid"
+
+msgid "api.issue.403.canEditPublishedDoi"
+msgstr "Only DOIs can be edited after a publication has been published"
+
+msgid "manager.institutions.noContext"
+msgstr "This institution's press could not be found."
+
+msgid "manager.manageEmails.description"
+msgstr "Edit the messages sent in emails from this preprint server."
+
+msgid "mailable.postedAck.name"
+msgstr "Posted Acknowledgement"
+
+msgid "mailable.postedAck.description"
+msgstr ""
+"This email is automatically sent to an author when the preprint is posted "
+"online on the server."
+
+msgid "mailable.editorAssigned.name"
+msgstr "Moderator Assigned (Auto)"
+
+msgid "mailable.editorAssigned.description"
+msgstr ""
+"This email is sent to a moderator when they are automatically assigned to a "
+"submission."
+
+msgid "manager.preprintPosted"
+msgstr "Preprint Posted"
+
+msgid "manager.preprintPosted.description"
+msgstr ""
+"Configure the email notifications to send when a new preprint is posted."
+
+msgid "manager.preprintPosted.fieldDescription"
+msgstr ""
+"Whether or not to send an email to the authors of the preprint when it is "
+"posted."
+
+msgid "mailable.publicationVersionNotify.name"
+msgstr "New Version Created"
+
+msgid "mailable.publicationVersionNotify.description"
+msgstr ""
+"This email automatically notifies the assigned moderators when a new version "
+"of a preprint is created."
+
+msgid "mailable.submissionAck.name"
+msgstr "Submission Acknowledgement (Pending Moderation)"
+
+msgid "mailable.submissionAck.description"
+msgstr ""
+"This email is automatically sent to an author when they make a submission "
+"and a moderator must approve it."
+
+msgid "mailable.submissionAckCanPost.name"
+msgstr "Submission Acknowledgement (No Moderation Required)"
+
+msgid "mailable.submissionAckCanPost.description"
+msgstr ""
+"This email is automatically sent to an author when they make a submission "
+"and no moderation is required. The author can post their preprint "
+"immediately."
+
+msgid "manager.setup.workflow.forTheEditorsHelp.description"
+msgstr ""
+"The following is shown to authors during the For Readers step, when they are "
+"asked to provide metadata such as keywords, licensing information, and other "
+"details to assist in discovery and moderation."
+
+msgid "mailable.postedNewVersionAck.name"
+msgstr "New Version Posted"
+
+msgid "mailable.postedNewVersionAck.description"
+msgstr ""
+"This email is sent to the author when a new version of their preprint is "
+"posted."
+
+msgid "mailable.decision.initialDecline.notifyAuthor.name"
+msgstr "Submission Declined"
+
+msgid "mailable.decision.initialDecline.notifyAuthor.description"
+msgstr ""
+"This email notifies the author that their preprint has been declined and "
+"will not be posted."

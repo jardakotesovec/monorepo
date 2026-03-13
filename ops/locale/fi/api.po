@@ -1,0 +1,65 @@
+# Antti-Jussi Nygård <ajnyga@gmail.com>, 2023.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-06-01 05:49+0000\n"
+"Last-Translator: Antti-Jussi Nygård <ajnyga@gmail.com>\n"
+"Language-Team: Finnish <http://translate.pkp.sfu.ca/projects/ops/api/fi/>\n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.13.1\n"
+
+msgid "api.announcements.400.contextsNotMatched"
+msgstr "Pyytämäsi ilmoitus ei ole osa tätä palvelinta."
+
+msgid "api.submissions.403.cantChangeContext"
+msgstr "Et voi vaihtaa käsikirjoitukseen liittyvää palvelinta."
+
+msgid "api.submissions.403.contextRequired"
+msgstr ""
+"Käsikirjoituksen luomiseksi tai muokkaamiseksi pitää tehdä kysely palvelimen "
+"rajapintaan."
+
+msgid "api.contexts.403.requestedDisabledContexts"
+msgstr "Voit katsoa vain julkisia palvelimia."
+
+msgid "api.contexts.403.notAllowed"
+msgstr "Sinulla ei ole lupaa katsoa tätä palvelinta."
+
+msgid "api.contexts.403.contextsDidNotMatch"
+msgstr ""
+"Et voi katsoa tai muokata tätä palvelinta, jos et tee pyyntöä palvelimen tai "
+"sivuston rajapintaan."
+
+msgid "api.contexts.403.requiresContext"
+msgstr "Palvelinta ei voi muokata sivuston rajapinnasta käsin."
+
+msgid "api.contexts.403.notAllowedEdit"
+msgstr "Sinulla ei ole lupaa muokata tätä palvelinta."
+
+msgid "api.contexts.403.notAllowedDelete"
+msgstr "Sinulla ei ole lupaa poistaa tätä palvelinta."
+
+msgid "api.contexts.404.contextNotFound"
+msgstr "Etsimääsi palvelinta ei löytynyt."
+
+msgid "api.dois.400.contextsNotMatched"
+msgstr "Pyytämäsi DOI ei kuulu tähän palvelimeen."
+
+msgid "api.dois.400.noRegistrationAgencyConfigured"
+msgstr "Tälle palvelimelle ei ole määritetty DOI-rekisteröintitoimistoa."
+
+msgid "api.emails.403.disabled"
+msgstr "Sähköposti-ilmoituksia ei ole otettu käyttöön tässä palvelimessa."
+
+msgid "api.emailTemplates.403.notAllowedChangeContext"
+msgstr ""
+"Sinulla ei ole lupaa siirtää tätä sähköpostipohjaa toiseen palvelimeen."
+
+msgid "api.publications.403.submissionsDidNotMatch"
+msgstr "Pyytämäsi julkaistu versio ei kuulu tähän käsikirjoitukseen."
+
+msgid "api.submissionFiles.400.badRepresentationAssocType"
+msgstr "Tämän vaiheen tiedosto ei voi olla julkaistava tiedosto."

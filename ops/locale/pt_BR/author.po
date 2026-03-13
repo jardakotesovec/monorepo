@@ -1,0 +1,59 @@
+# Diego José Macêdo <diegojmacedo@gmail.com>, 2022.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-08-17 20:41+0000\n"
+"Last-Translator: Diego José Macêdo <diegojmacedo@gmail.com>\n"
+"Language-Team: Portuguese (Brazil) <http://translate.pkp.sfu.ca/projects/ops/"
+"author/pt_BR/>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.13.1\n"
+
+msgid "author.submit"
+msgstr "Nova Submissão"
+
+msgid "author.competingInterests"
+msgstr ""
+"Interesses concorrentes<a target=\"_new\" class=\"action\" href="
+"\"{$competingInterestGuidelinesUrl}\">Política de IC</a>"
+
+msgid "author.submit.startHereLink"
+msgstr ""
+"<a href=\"{$submitUrl}\" class=\"action\">Clique aqui</a>para ir para a "
+"primeira etapa do processo de envio em cinco etapas."
+
+msgid "author.submit.start"
+msgstr "Início"
+
+msgid "author.submit.upload"
+msgstr "Enviar Submissão"
+
+msgid "author.submit.metadata"
+msgstr "Ingressar Metadados"
+
+msgid "author.submit.nextSteps"
+msgstr "Próximas etapas"
+
+msgid "author.submit.notAccepting"
+msgstr "Este servidor não está aceitando submissões no momento."
+
+msgid "author.submit.serverSection"
+msgstr "Seção do Servidor"
+
+msgid "author.submit.serverSectionDescription"
+msgstr "Preprints devem ser submetidas para uma das seções do servidor."
+
+#, fuzzy
+msgid "submission.submit.coverNote"
+msgstr "Comentários para o Editor"
+
+msgid "author.submit.languageInstructions"
+msgstr ""
+"Inglês=en; Francês=fr; Spanish=es.<a href=\"https://www.loc.gov/standards/"
+"iso639-2/php/code_list.php\" target=\"_blank\"> Códigos adicionais</a>."
+
+msgid "author.submit.form.abstractRequired"
+msgstr "Por favor, ingresse o resumo de seu preprint."

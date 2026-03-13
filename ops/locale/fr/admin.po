@@ -1,0 +1,13 @@
+# Weblate Admin <alec@smecher.bc.ca>, 2023.
+msgid ""
+msgstr ""
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Weblate\n"
+
+#, fuzzy
+msgid "admin.settings.statistics.sushiPlatform.isSiteSushiPlatform"
+msgstr ""
+"Utiliser ce site comme plateforme pour toutes les revues, tous les éditeurs "

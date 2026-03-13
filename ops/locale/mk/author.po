@@ -1,0 +1,59 @@
+# Teodora Fildishevska <t.fildishevska@gmail.com>, 2023.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-03-16 19:17+0000\n"
+"Last-Translator: Teodora Fildishevska <t.fildishevska@gmail.com>\n"
+"Language-Team: Macedonian <http://translate.pkp.sfu.ca/projects/ops/author/"
+"mk/>\n"
+"Language: mk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n==1 || n%10==1 ? 0 : 1;\n"
+"X-Generator: Weblate 4.13.1\n"
+
+msgid "author.submit"
+msgstr "Нов поднесок"
+
+msgid "author.competingInterests"
+msgstr ""
+"Интереси во конкуренција <a target=\"_new\" class=\"action\" href=\""
+"{$competingInterestGuidelinesUrl}\">CI Policy</a>"
+
+msgid "author.submit.startHereLink"
+msgstr ""
+"<a href=\"{$submitUrl}\" class=\"action\"> Кликнете овде </a> за да отидете "
+"во чекор еден од процесот на доставување во пет чекори."
+
+msgid "author.submit.start"
+msgstr "Започнете"
+
+msgid "author.submit.upload"
+msgstr "Испратете го поднесокот"
+
+msgid "author.submit.metadata"
+msgstr "Внесете метаподатоци"
+
+msgid "author.submit.nextSteps"
+msgstr "Следни чекори"
+
+msgid "author.submit.notAccepting"
+msgstr "Овој сервер не прифаќа поднесоци во овој момент."
+
+msgid "author.submit.serverSection"
+msgstr "Дел за сервер"
+
+msgid "author.submit.serverSectionDescription"
+msgstr "Отпечатоците мора да бидат доставени до еден од деловите на серверот."
+
+msgid "submission.submit.coverNote"
+msgstr "Коментари за модераторот"
+
+msgid "author.submit.languageInstructions"
+msgstr ""
+"Англиски=en; Француски=fr; Шпански=es. <a href=\"http://www.loc.gov/"
+"standards/iso639-2/php/code_list.php\" target=\"_blank\">Additional codes</"
+"a>."
+
+msgid "author.submit.form.abstractRequired"
+msgstr "Ве молиме, внесете го апстрактот од вашиот препечаток."

@@ -1,0 +1,105 @@
+{
+	"title": "Server",
+	"description": "A server.",
+	"properties": {
+		"abbreviation": {
+			"type": "string",
+			"multilingual": true,
+			"apiSummary": true,
+			"validation": [
+				"nullable"
+			]
+		},
+		"enableAuthorScreening": {
+			"type": "boolean",
+			"default": 0,
+			"validation": [
+				"nullable"
+			]
+		},
+		"enabledDoiTypes": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"validation": [
+					"in:publication,representation"
+				]
+			},
+		  	"default": ["publication"]
+		},
+		"enablePublisherId": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"validation": [
+					"in:publication,galley,issue,issueGalley"
+				]
+			}
+		},
+		"postedAcknowledgement": {
+			"type": "boolean",
+			"description": "Whether or not to send an email to the authors when their preprint is posted. This email is only sent when the first version is posted. Default: `true`",
+			"default": true,
+			"validation": [
+				"nullable"
+			]
+		},
+		"serverThumbnail": {
+			"type": "object",
+			"multilingual": true,
+			"apiSummary": true,
+			"validation": [
+				"nullable"
+			],
+			"properties": {
+				"temporaryFileId": {
+					"type": "integer",
+					"writeOnly": true
+				},
+				"name": {
+					"type": "string"
+				},
+				"uploadName": {
+					"type": "string"
+				},
+				"width": {
+					"type": "integer"
+				},
+				"height": {
+					"type": "integer"
+				},
+				"dateUploaded": {
+					"type": "string",
+					"validation": [
+						"date_format:Y-m-d H:i:s"
+					]
+				},
+				"altText": {
+					"type": "string"
+				}
+			}
+		},
+		"enableOai": {
+			"type": "boolean",
+			"default": 1,
+			"validation": [
+				"nullable"
+			]
+		},
+		"sponsoringOrganization": {
+			"type": "string",
+			"validation": [
+				"nullable"
+			]
+		},
+		"doiVersioning": {
+			"type": "boolean",
+			"default": true,
+		  	"description": "Whether each publication version should receive a unique DOI"
+		},
+		"doiCreationTime": {
+			"type": "string",
+			"default": "copyEditCreationTime"
+		}
+	}
+}

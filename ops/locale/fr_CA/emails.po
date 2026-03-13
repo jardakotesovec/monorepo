@@ -1,0 +1,168 @@
+# Pierre Lasou <pierre.lasou@bibl.ulaval.ca>, 2024.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-04T10:02:26-08:00\n"
+"PO-Revision-Date: 2024-02-15 17:39+0000\n"
+"Last-Translator: Pierre Lasou <pierre.lasou@bibl.ulaval.ca>\n"
+"Language-Team: French (Canada) <http://translate.pkp.sfu.ca/projects/ops/"
+"emails/fr_CA/>\n"
+"Language: fr_CA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.18.2\n"
+
+msgid "emails.passwordResetConfirm.subject"
+msgstr "Confirmation de la réinitialisation du mot de passe"
+
+msgid "emails.passwordResetConfirm.body"
+msgstr ""
+"Nous avons reçu une demande concernant la réinitialisation de votre mot de "
+"passe pour le site Web {$siteTitle}.<br />\n"
+"<br />\n"
+"Si vous n'avez pas fait cette demande, veuillez ne pas tenir compte du "
+"présent message, votre mot de passe restera le même. Si vous souhaitez "
+"réinitialiser votre mot de passe, cliquer sur l'URL ci-dessous.<br />\n"
+"<br />\n"
+"Réinitialisation de mon mot de passe : {$passwordResetUrl}<br />\n"
+"<br />\n"
+"{$siteContactName}"
+
+msgid "emails.userRegister.subject"
+msgstr "Inscription au serveur"
+
+msgid "emails.userRegister.body"
+msgstr ""
+"{$recipientName},<br />\n"
+"<br />\n"
+"Vous êtes désormais inscrit-e en tant qu'utilisateur-trice pour "
+"{$contextName}. Votre nom d'utilisateur-trice et votre mot de passe figurent "
+"dans ce courriel, lesquels sont requis pour toute interaction avec le "
+"serveur via son site Web. À n'importe quel moment, vous pouvez demander à "
+"être retiré-e de la liste des utilisateurs-trices du serveur en nous "
+"contactant.<br />\n"
+"<br />\n"
+"Nom d'utilisateur-trice : {$recipientUsername}<br />\n"
+"Mot de passe : {$password}<br />\n"
+"<br />\n"
+"Merci,<br />\n"
+"{$signature}"
+
+msgid "emails.userValidateContext.subject"
+msgstr "Valider votre compte"
+
+msgid "emails.userValidateContext.body"
+msgstr ""
+"{$recipientName},<br />\n"
+"<br />\n"
+"Vous avez créé un compte avec {$contextName}. Pour pouvoir commencer à "
+"l'utiliser vous devez d'abord valider votre compte de courriel. Pour ce "
+"faire, vous n'avez qu'à suivre le lien ci-dessous :<br />\n"
+"<br />\n"
+"{$activateUrl}<br />\n"
+"<br />\n"
+"Merci,<br />\n"
+"{$contextSignature}"
+
+msgid "emails.userValidateSite.subject"
+msgstr ""
+
+msgid "emails.userValidateSite.body"
+msgstr ""
+
+msgid "emails.issuePublishNotify.subject"
+msgstr "Nouvelle prépublication publiée"
+
+msgid "emails.issuePublishNotify.body"
+msgstr ""
+"Lecteurs-trices :<br />\n"
+"<br />\n"
+"La plus récente prépublication de {$contextName} vient d'être publiée à "
+"l'adresse suivante : {$contextUrl}.\n"
+"<br />\n"
+"Nous vous remercions de l'intérêt que vous portez à notre travail,<br />\n"
+"{$signature}"
+
+msgid "emails.postedAck.subject"
+msgstr ""
+
+msgid "emails.postedAck.body"
+msgstr ""
+
+msgid "emails.submissionAckCanPost.subject"
+msgstr ""
+
+#, fuzzy
+msgid "emails.submissionAckNotAuthor.subject"
+msgstr "Accusé de réception de la soumission"
+
+#, fuzzy
+msgid "emails.submissionAckNotAuthor.body"
+msgstr ""
+"Bonjour,<br />\n"
+"<br />\n"
+"Le manuscrit intitulé , « {$submissionTitle} » , a été soumis par "
+"{$submitterName} à {$contextName}.<br />\n"
+"<br />\n"
+"Si vous avez des questions, n'hésitez pas à communiquer avec nous. Nous vous "
+"remercions d'avoir pensé à {$contextName} pour la publication de vos travaux."
+"<br />\n"
+"<br />\n"
+"{$contextSignature}"
+
+#, fuzzy
+msgid "emails.editorAssign.subject"
+msgstr ""
+
+msgid "emails.editorAssign.body"
+msgstr ""
+
+#, fuzzy
+msgid "emails.editorDecisionAccept.subject"
+msgstr ""
+
+#, fuzzy
+msgid "emails.editorDecisionAccept.body"
+msgstr ""
+
+msgid "emails.revisedVersionNotify.subject"
+msgstr ""
+
+msgid "emails.revisedVersionNotify.body"
+msgstr ""
+
+msgid "emails.statisticsReportNotification.subject"
+msgstr ""
+
+msgid "emails.statisticsReportNotification.body"
+msgstr ""
+
+msgid "emails.announcement.subject"
+msgstr ""
+
+msgid "emails.announcement.body"
+msgstr ""
+
+msgid "emails.submissionAck.body"
+msgstr ""
+
+msgid "emails.postedNewVersionAck.subject"
+msgstr ""
+
+msgid "emails.postedNewVersionAck.body"
+msgstr ""
+
+msgid "emails.editorDecisionRevertInitialDecline.body"
+msgstr ""
+"<p>{$recipientName},</p>\n"
+"<p>La décision de rejeter votre soumission, {$submissionTitle}, a été "
+"renversée. Un-e modérateur-trice évaluera votre soumission dans les détails "
+"afin de décider si votre soumission sera rejetée ou pourra être envoyée en "
+"évaluation.</p>\n"
+"<p>Si vous avez des questions, vous pouvez nous contacter sur votre <a href="
+"\"{$authorSubmissionUrl}\">tableau de bord de soumissions</a>.</p>\n"
+"<p>Cordialement,</p>\n"
+"<p>{$signature}</p>\n"

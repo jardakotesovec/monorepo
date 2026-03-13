@@ -1,0 +1,140 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-08-12 16:48+0000\n"
+"Last-Translator: Alex Mendonça <alex.mendonca@scielo.org>\n"
+"Language-Team: Spanish <http://translate.pkp.sfu.ca/projects/ops/emails/"
+"es_ES/>\n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "emails.passwordResetConfirm.subject"
+msgstr "Confirmación de restablecimiento de contraseña"
+
+msgid "emails.passwordResetConfirm.body"
+msgstr ""
+"Hemos recibido una solicitud para restablecer su contraseña para el sitio "
+"web {$siteTitle}. <br />\n"
+"<br />\n"
+"Si no realizó esta solicitud, ignore este correo electrónico y su contraseña "
+"no se cambiará. Si desea restablecer su contraseña, haga clic en la "
+"siguiente URL. <br />\n"
+"<br />\n"
+"Restablecer mi contraseña: {$passwordResetUrl} <br />\n"
+"<br />\n"
+"{$siteContactName}"
+
+msgid "emails.userRegister.subject"
+msgstr "Registro en el servidor"
+
+msgid "emails.userRegister.body"
+msgstr ""
+"{$recipientName} <br />\n"
+"<br />\n"
+"Ahora ha sido registrado como usuario con {$contextName}. Hemos incluido su "
+"nombre de usuario y contraseña en este correo electrónico, que son "
+"necesarios para todo el trabajo con este servidor a través de su sitio web. "
+"En cualquier momento, puede solicitar que lo eliminen de la lista de "
+"usuarios del servidor poniéndose en contacto conmigo. <br />\n"
+"<br />\n"
+"Nombre de usuario: {$recipientUsername} <br />\n"
+"Contraseña: {$password} <br />\n"
+"<br />\n"
+"Gracias <br />\n"
+"{$signature}"
+
+msgid "emails.userValidateContext.subject"
+msgstr "Valide su cuenta"
+
+msgid "emails.userValidateContext.body"
+msgstr ""
+"{$recipientName} <br />\n"
+"<br />\n"
+"Ha creado una cuenta con {$contextName}, pero antes de poder comenzar a "
+"usarla, debe validar su cuenta de correo electrónico. Para hacer esto, "
+"simplemente siga el siguiente enlace: <br />\n"
+"<br />\n"
+"{$enableUrl} <br />\n"
+"<br />\n"
+"Gracias <br />\n"
+"{$contextSignature}"
+
+msgid "emails.userValidateSite.subject"
+msgstr ""
+
+msgid "emails.userValidateSite.body"
+msgstr ""
+
+msgid "emails.issuePublishNotify.subject"
+msgstr "Nuevo preprint postado"
+
+msgid "emails.issuePublishNotify.body"
+msgstr ""
+"Lectores: <br />\n"
+"<br />\n"
+"{$contextName} acaba de publicar su último preprint en {$contextUrl}.\n"
+"<br />\n"
+"Gracias por el continuo interés en nuestro trabajo, <br />\n"
+"{$signature}"
+
+msgid "emails.postedAck.subject"
+msgstr ""
+
+msgid "emails.postedAck.body"
+msgstr ""
+
+msgid "emails.submissionAckCanPost.subject"
+msgstr ""
+
+#, fuzzy
+msgid "emails.submissionAckNotAuthor.subject"
+msgstr ""
+
+#, fuzzy
+msgid "emails.submissionAckNotAuthor.body"
+msgstr ""
+
+#, fuzzy
+msgid "emails.editorAssign.subject"
+msgstr ""
+
+msgid "emails.editorAssign.body"
+msgstr ""
+
+#, fuzzy
+msgid "emails.editorDecisionAccept.subject"
+msgstr ""
+
+#, fuzzy
+msgid "emails.editorDecisionAccept.body"
+msgstr ""
+
+msgid "emails.revisedVersionNotify.subject"
+msgstr ""
+
+msgid "emails.revisedVersionNotify.body"
+msgstr ""
+
+msgid "emails.statisticsReportNotification.subject"
+msgstr ""
+
+msgid "emails.statisticsReportNotification.body"
+msgstr ""
+
+msgid "emails.announcement.subject"
+msgstr ""
+
+msgid "emails.announcement.body"
+msgstr ""
+
+msgid "emails.submissionAck.body"
+msgstr ""
+
+msgid "emails.postedNewVersionAck.subject"
+msgstr ""
+
+msgid "emails.postedNewVersionAck.body"
+msgstr ""

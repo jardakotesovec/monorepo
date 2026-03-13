@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE groups SYSTEM "../lib/pkp/dtd/userGroups.dtd">
+
+<!--
+  * registry/userGroups.xml
+  *
+  * Copyright (c) 2014-2021 Simon Fraser University
+  * Copyright (c) 2003-2021 John Willinsky
+  * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+  *
+  * Roles XML file.
+  *
+  -->
+
+<groups>
+	<!-- Managerial Role -->
+	<group roleId="0x00000010" stages="5" name="default.groups.name.manager" plural="default.groups.plural.manager" abbrev="default.groups.abbrev.manager" permitMetadataEdit="true" permitSettings="true" />
+
+	<!--  Moderator Role -->
+	<group roleId="0x00000011" stages="5" name="default.groups.name.sectionEditor" plural="default.groups.plural.sectionEditor" abbrev="default.groups.abbrev.sectionEditor" permitMetadataEdit="true" masthead="true" />
+
+	<!-- Author Role -->
+	<group roleId="0x00010000" stages="5" name="default.groups.name.author" plural="default.groups.plural.author" abbrev="default.groups.abbrev.author" permitSelfRegistration="true" permitMetadataEdit="true" />
+
+	<!-- Reader Role -->
+	<group roleId="0x00100000" stages="" name="default.groups.name.reader" plural="default.groups.plural.reader" abbrev="default.groups.abbrev.reader" permitSelfRegistration="true" />
+
+  <!-- Editorial Board Member Role -->
+	<group roleId="0x00001001" stages="" name="default.groups.name.editorialBoardMember" plural="default.groups.plural.editorialBoardMember" abbrev="default.groups.abbrev.editorialBoardMember" masthead="true" />
+</groups>

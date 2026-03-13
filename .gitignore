@@ -1,0 +1,91 @@
+# Common
+.DS_Store
+.claude
+node_modules
+.htaccess
+.project
+.buildpath
+.settings
+.settings/
+.php_cs.cache
+.php-cs-fixer.cache
+.phpunit.result.cache
+cypress.env.json
+cypress/logs/
+cypress/screenshots/
+
+# App configs
+ojs/config.inc.php
+omp/config.inc.php
+ops/config.inc.php
+
+# Build artifacts
+ojs/build
+omp/build
+ops/build
+ojs/js/build/
+ojs/js/build.js
+ojs/js/build_frontend.js
+ojs/js/hot-updates
+ojs/styles/build.css
+ojs/styles/build_frontend.css
+omp/js/build.js
+omp/js/build_frontend.js
+omp/js/hot-updates
+omp/styles/build.css
+ops/js/build/
+ops/js/build.js
+ops/js/build_frontend.js
+ops/js/hot-updates
+ops/styles/build.css
+
+# Temp/files
+ojs/temp
+omp/temp
+ops/temp
+ojs/files
+omp/files
+ops/files
+
+# Vendor
+ojs/plugins/paymethod/paypal/vendor/
+omp/plugins/paymethod/paypal/vendor/
+ops/plugins/paymethod/paypal/vendor/
+
+# Theme assets
+ojs/plugins/themes/default/js/lib/swiper/
+omp/plugins/themes/default/js/lib/swiper/
+ops/plugins/themes/default/js/lib/swiper/
+
+# Registry
+ojs/registry/uiLocaleKeysBackend.json
+omp/registry/uiLocaleKeysBackend.json
+ops/registry/uiLocaleKeysBackend.json
+
+# pkp-lib
+pkp-lib/te_ST/
+pkp-lib/lib/tinymce/jscripts/tiny_mce/*.gz
+pkp-lib/lib/vendor
+pkp-lib/lib/components
+pkp-lib/styles/tinymce
+pkp-lib/tests/.phpunit.result.cache
+pkp-lib/tests/.phpunit.cache
+pkp-lib/lib/weblateLanguages/languages.json
+pkp-lib/js/lib/altcha/
+pkp-lib/registry/blacklistedPasswords.txt
+
+# ui-library
+ui-library/node_modules
+ui-library/dist
+ui-library/storybook-static
+ui-library/public/styles/tinymce/**
+ui-library/.env.local
+ui-library/.env.*.local
+ui-library/npm-debug.log*
+ui-library/yarn-debug.log*
+ui-library/yarn-error.log*
+ui-library/.idea
+ui-library/.vscode
+
+# OMP specific
+omp/te_ST/

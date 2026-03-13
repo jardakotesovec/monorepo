@@ -1,0 +1,841 @@
+import {ref, watch} from 'vue';
+import {useApp} from './useApp';
+
+// Position constants for field placement
+const FIELD_POSITION_BEFORE = 'before';
+const FIELD_POSITION_AFTER = 'after';
+
+/**
+ * Check if a field exists in a form
+ * @param {Object} form - The form object
+ * @param {string} name - The field name to check
+ * @returns {boolean} True if the field exists
+ */
+function doesFieldExist(form, name) {
+	const fields = form.fields;
+
+	return !!fields.find((field) => field.name === name);
+}
+
+/**
+ * Get the default empty value for a field
+ * @param {Object} field - The field object
+ * @param {string|null} localeKey - The locale key for multilingual fields
+ * @returns {*} The appropriate empty value based on field type
+ */
+function getClearValue(field, localeKey = null) {
+	if (localeKey) {
+		if (field.component === 'field-slider') {
+			return field.min;
+		}
+		return Array.isArray(field.value[localeKey]) || field.selected ? [] : '';
+	}
+
+	if (field.component === 'field-slider') {
+		return field.min;
+	}
+	return Array.isArray(field.value) || field.selected ? [] : '';
+}
+
+/**
+ * Extract values from selected items
+ * @param {Array<Object>} selected - Array of selected items with value properties
+ * @returns {Array<*>} Array of values
+ */
+function mapFromSelectedToValue(selected) {
+	return selected.map((iv) => iv.value);
+}
+
+/**
+ * Check if a field's value should be treated as an array
+ * @param {Object} field - The field object to check
+ * @returns {boolean} True if the field value should be treated as an array
+ */
+export function isFieldValueArray(field) {
+	return Array.isArray(field.value) || field.selected ? true : false;
+}
+
+/**
+ * Add a field to a specific position in the fields array
+ * @param {string} targetFieldName - The name of the field to position relative to
+ * @param {Array} fieldsList - The current fields array
+ * @param {Object} newField - The field object to insert
+ * @param {string} position - Either FIELD_POSITION_BEFORE or FIELD_POSITION_AFTER
+ * @returns {Array} The updated fields array
+ */
+function addToPosition(targetFieldName, fieldsList, newField, position) {
+	let targetIndex = fieldsList.length; // Default to end if target not found
+
+	// Find the index of the target field
+	for (let i = 0; i < fieldsList.length; i++) {
+		if (fieldsList[i].name === targetFieldName) {
+			targetIndex = i;
+			break;
+		}
+	}
+
+	// Handle special case: insert at beginning if before first element
+	if (targetIndex === 0 && position === FIELD_POSITION_BEFORE) {
+		return [newField, ...fieldsList];
+	}
+
+	// Calculate the insertion point
+	const insertIndex =
+		position === FIELD_POSITION_BEFORE ? targetIndex : targetIndex + 1;
+
+	// Insert the new field at the calculated position
+	return [
+		...fieldsList.slice(0, insertIndex),
+		newField,
+		...fieldsList.slice(insertIndex),
+	];
+}
+
+/**
+ * Provides functions for form management
+ * @param {Object} _form - The initial form object
+ * @param {Object} [options={}] - Additional options
+ * @param {Function} [options.customSubmit] - Custom submit function
+ */
+export function useForm(_form = {}, {customSubmit} = {}) {
+	/**
+	 * The form state
+	 * @type {Ref<Object>}
+	 */
+	const form = ref(_form);
+
+	if (customSubmit) {
+		form.value.customSubmit = customSubmit;
+	}
+
+	/**
+	 * Connect form fields with a payload object
+	 * @param {Ref<Object>} payload - Reactive object with field values
+	 */
+	function connectWithPayload(payload) {
+		watch(
+			payload,
+			(newPayload) => {
+				Object.keys(newPayload).forEach((key) => {
+					if (doesFieldExist(form.value, key)) {
+						if (getValue(key) !== newPayload[key]) {
+							setValue(key, newPayload[key]);
+						}
+					}
+				});
+			},
+			{immediate: true},
+		);
+	}
+
+	/**
+	 * Connect form fields with an errors object
+	 * @param {Ref<Object>} errors - Reactive object with field errors
+	 */
+	function connectWithErrors(errors) {
+		watch(
+			errors,
+			(newErrors) => {
+				form.value.errors = {};
+				Object.keys(newErrors).forEach((key) => {
+					if (doesFieldExist(form.value, key)) {
+						form.value.errors[key] = newErrors[key];
+					}
+				});
+			},
+			{immediate: true},
+		);
+	}
+
+	/**
+	 * Set form properties
+	 * @param {string} key - The form property to update
+	 * @param {Object} data - The data to set
+	 */
+	function set(key, data) {
+		Object.keys(data).forEach(function (dataKey) {
+			form.value[dataKey] = data[dataKey];
+		});
+	}
+
+	/**
+	 * Get a group from a form by name
+	 * @param {string} groupId - The group id to find
+	 * @returns {Object|undefined} The group object if found
+	 */
+	function getGroup(groupId) {
+		const groups = form.value.groups;
+
+		return groups.find((group) => group.id === groupId);
+	}
+
+	/**
+	 * Get a field from a form by name
+	 * @param {string} name - The field name to find
+	 * @returns {Object|undefined} The field object if found
+	 */
+	function getField(name) {
+		const fields = form.value.fields;
+
+		return fields.find((field) => field.name === name);
+	}
+
+	/**
+	 * Get a field's value
+	 * @param {string} name - The field name
+	 * @returns {*} The field's value
+	 */
+	function getValue(name) {
+		const field = getField(name);
+
+		return field.value;
+	}
+
+	/**
+	 * Set multiple field values at once
+	 * @param {Object} values - Object mapping field names to values
+	 */
+	function setValues(values) {
+		Object.keys(values).forEach((key) => {
+			setValue(key, values[key]);
+		});
+	}
+
+	/**
+	 * Removes a field from the form's "errors" object
+	 * Call this when manually setting a new value to a field that was previously invalid
+	 * @param {String} name - The field name
+	 */
+	function removeFieldError(name) {
+		const field = getField(name);
+		const errors = form.value.errors || {};
+
+		if (!field || !errors[name]) {
+			return;
+		}
+
+		delete errors[name];
+		set('errors', errors);
+	}
+
+	/**
+	 * Set a field's value
+	 * @param {string} name - The field name
+	 * @param {*} inputValue - The value to set
+	 */
+	function setValue(name, inputValue) {
+		const field = getField(name);
+		if (!field) {
+			return;
+		}
+		if (field.selected) {
+			if (field.isMultilingual) {
+				field.value = {};
+				field.selected = {};
+
+				Object.keys(inputValue).forEach((localeKey) => {
+					field.value[localeKey] = mapFromSelectedToValue(
+						inputValue[localeKey],
+					);
+				});
+			} else {
+				const onlyValues = mapFromSelectedToValue(inputValue);
+				field.value = onlyValues;
+				field.selected = inputValue;
+			}
+			field.selected = inputValue;
+		} else {
+			field.value = inputValue;
+		}
+	}
+
+	/**
+	 * Set a hidden field's value
+	 * @param {string} name - The field name
+	 * @param {*} value - The value to set
+	 */
+	function setHiddenValue(name, value) {
+		form.value.hiddenFields[name] = value;
+	}
+
+	/**
+	 * Get a hidden field's value
+	 * @param {string} name - The field name
+	 * @returns {*} The hidden field's value
+	 */
+	function getHiddenValue(name) {
+		return form.value.hiddenFields[name];
+	}
+
+	/**
+	 * Set whether the form can be submitted.
+	 *
+	 * @param {boolean} canSubmitVal - The value to assign (true if the form can be submitted).
+	 */
+	function setCanSubmit(canSubmitVal) {
+		form.value.canSubmit = canSubmitVal;
+	}
+
+	/**
+	 * Clear a specific form field
+	 * @param {string} fieldName - The name of the field to clear
+	 */
+	function clearFormField(fieldName) {
+		const field = getField(fieldName);
+
+		if (field.isMultilingual) {
+			const newValueMultilingual = {};
+			form.value.supportedFormLocales.forEach((localeObject) => {
+				const localeKey = localeObject.key;
+				const newValue = getClearValue(field, localeKey);
+				newValueMultilingual[localeKey] = newValue;
+			});
+			setValue(field.name, newValueMultilingual);
+		} else {
+			const newValue = getClearValue(field);
+			setValue(field.name, newValue);
+		}
+	}
+
+	/**
+	 * Remove a specific value from a field (for multi-value fields)
+	 * @param {string} fieldName - The name of the field
+	 * @param {*} fieldValue - The value to remove
+	 */
+	function removeFieldValue(fieldName, fieldValue) {
+		const value = getValue(fieldName);
+		const field = getField(fieldName);
+		if (Array.isArray(value)) {
+			let newValue = null;
+			if (field.selected) {
+				newValue = field.selected.filter((v) => v.value !== fieldValue);
+			} else {
+				newValue = value.filter((v) => v !== fieldValue);
+			}
+
+			setValue(fieldName, newValue);
+		} else {
+			clearFormField(fieldName);
+		}
+	}
+
+	/**
+	 * Clear all form fields
+	 */
+	function clearForm() {
+		form.value.fields.forEach((field) => {
+			clearFormField(field.name);
+		});
+	}
+
+	/**
+	 * Set form locales based on a submission object
+	 * @param {Object} submission - The submission object with locale information
+	 */
+	function setLocalesForSubmission(submission) {
+		const supportedFormLocales = submission.metadataLocales;
+		if (Array.isArray(supportedFormLocales)) {
+			form.value.supportedFormLocales = supportedFormLocales;
+		} else {
+			form.value.supportedFormLocales = Object.keys(supportedFormLocales).map(
+				(localeKey) => ({
+					key: localeKey,
+					label: supportedFormLocales[localeKey],
+				}),
+			);
+		}
+
+		form.value.primaryLocale = submission.locale;
+		form.value.visibleLocales = [submission.locale];
+	}
+
+	/**
+	 * Convert flat errors to a nested structure
+	 * @param {Object} errors - Flat error object with dot notation keys
+	 * @returns {Object} Structured error object
+	 */
+	function structuredErrors(errors) {
+		const result = {};
+		for (const key in errors) {
+			const value = errors[key];
+			const keys = key.split('.');
+			let current = result;
+			for (let i = 0; i < keys.length; i++) {
+				const obj = keys[i];
+				if (i === keys.length - 1) {
+					current[obj] = value;
+				} else {
+					current[obj] = current[obj] || {};
+					current = current[obj];
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Set the form's action URL
+	 * @param {string} _action - The action URL
+	 */
+	function setAction(_action) {
+		form.value.action = _action;
+	}
+
+	/**
+	 * Set the form's action URL
+	 * @param {string} _action - The action URL
+	 */
+	function setMethod(_method) {
+		form.value.method = _method;
+	}
+
+	function setLocales(locales = null) {
+		const {getCurrentLocale, getPrimaryLocale, getSupportedFormLocales} =
+			useApp();
+		const supportedFormLocales = locales || getSupportedFormLocales();
+		if (Array.isArray(supportedFormLocales)) {
+			form.value.supportedFormLocales = supportedFormLocales;
+		} else {
+			form.value.supportedFormLocales = Object.keys(supportedFormLocales).map(
+				(localeKey) => ({
+					key: localeKey,
+					label: supportedFormLocales[localeKey],
+				}),
+			);
+		}
+
+		form.value.primaryLocale = getPrimaryLocale();
+		let visibleLocales = [getCurrentLocale()];
+		if (getCurrentLocale() !== getPrimaryLocale()) {
+			visibleLocales.unshift(getPrimaryLocale());
+		}
+		form.value.visibleLocales = visibleLocales;
+	}
+
+	function initEmptyForm(
+		formId,
+		{
+			action,
+			method,
+			locales,
+			showErrorFooter,
+			spacingVariant,
+			onSuccess,
+			onSet,
+			canSubmit,
+		} = {},
+	) {
+		if (!form.value) {
+			form.value = {};
+		}
+		form.value.pages = [];
+		form.value.groups = [];
+		form.value.fields = [];
+		form.value.hiddenFields = [];
+
+		form.value.id = formId;
+		form.value.locales = locales;
+		form.value.showErrorFooter = showErrorFooter;
+		form.value.spacingVariant = spacingVariant || 'default';
+		form.value.onSuccess = onSuccess || undefined;
+		form.value.onSet = onSet || set;
+
+		form.value.canSubmit = canSubmit;
+		setMethod(method || 'POST');
+		setAction(action || 'emit');
+		setLocales(locales);
+	}
+
+	function addPage(pageId, {submitButton, cancelButton, previousButton} = {}) {
+		form.value.pages.push({
+			id: pageId,
+			submitButton,
+			cancelButton,
+			previousButton,
+		});
+	}
+
+	function addGroup(
+		groupId,
+		{pageId, label, description, groupComponent, ...additionalOptions} = {},
+		{override = false} = {},
+	) {
+		form.value.groups = form.value.groups || [];
+
+		const group = getGroup(groupId);
+		const groupObj = {
+			id: groupId || 'default',
+			label,
+			description,
+			pageId: pageId || 'default',
+			groupComponent,
+			...additionalOptions,
+		};
+
+		if (group && override) {
+			// replace the entire group if it exists and override is `true`
+			Object.assign(group, groupObj);
+		} else {
+			form.value.groups.push(groupObj);
+		}
+	}
+
+	/**
+	 * Adds a new field to the form or updates an existing one.
+	 * @param {string} fieldName - The name of the field
+	 * @param {Object} fieldOptions - Configuration options for the field
+	 * @param {Object} [opts] - Optional settings.
+	 * @param {boolean} [opts.override=false] - If true and the field already exists, it will be fully overridden.
+	 * @param {string} [opts.positionBefore] - Name of field to position this field before
+	 * @param {string} [opts.positionAfter] - Name of field to position this field after
+	 */
+	function addField(
+		fieldName,
+		{
+			component,
+			label,
+			description,
+			groupId,
+			isRequired,
+			isMultilingual,
+			showWhen,
+			isInert,
+			...additionalFields
+		},
+		{override = false, positionBefore, positionAfter} = {},
+	) {
+		const field = getField(fieldName);
+		const fieldObj = {
+			name: fieldName,
+			component,
+			label,
+			description,
+			groupId: groupId || 'default',
+			isRequired,
+			isMultilingual,
+			showWhen,
+			isInert,
+			...additionalFields,
+		};
+
+		if (field && override) {
+			// replace the entire field if it exists and override is `true`
+			Object.assign(field, fieldObj);
+		} else {
+			// Handle positioning if specified
+			if (positionBefore || positionAfter) {
+				const targetFieldName = positionBefore || positionAfter;
+				const position = positionBefore
+					? FIELD_POSITION_BEFORE
+					: FIELD_POSITION_AFTER;
+				form.value.fields = addToPosition(
+					targetFieldName,
+					form.value.fields,
+					fieldObj,
+					position,
+				);
+			} else {
+				// Default behavior: add to end
+				form.value.fields.push(fieldObj);
+			}
+		}
+	}
+
+	/**
+	 * Adds or updates a text field in the form.
+	 * @param {string} fieldName - The name of the field
+	 * @param {Object} fieldOptions - Includes the input type and other common field properties.
+	 * @param {Object} [opts] - Optional settings.
+	 * @param {boolean} [opts.override] - If true and the field already exists, it will be fully overridden.
+	 * @param {string} [opts.positionBefore] - Name of field to position this field before
+	 * @param {string} [opts.positionAfter] - Name of field to position this field after
+	 */
+	function addFieldText(
+		fieldName,
+		{inputType, optIntoEdit, optIntoEditLabel, size, prefix, ...commonFields},
+		opts = {},
+	) {
+		addField(
+			fieldName,
+			{
+				component: 'field-text',
+				inputType,
+				optIntoEdit,
+				optIntoEditLabel,
+				size,
+				prefix,
+				...commonFields,
+			},
+			opts,
+		);
+	}
+
+	/**
+	 * Adds or updates a date field in the form.
+	 * @param {string} fieldName - The name of the field
+	 * @param {Object} fieldOptions - Configuration options for the field, including size, min, and max.
+	 * @param {Object} [opts] - Optional settings.
+	 * @param {boolean} [opts.override] - If true and the field already exists, it will be fully overridden.
+	 * @param {string} [opts.positionBefore] - Name of field to position this field before
+	 * @param {string} [opts.positionAfter] - Name of field to position this field after
+	 */
+	function addFieldDate(
+		fieldName,
+		{size, min, max, ...commonFields},
+		opts = {},
+	) {
+		addField(
+			fieldName,
+			{
+				component: 'field-date',
+				size,
+				min,
+				max,
+				...commonFields,
+			},
+			opts,
+		);
+	}
+
+	/**
+	 * Adds or updates a select field in the form.
+	 *
+	 * @param {string} fieldName - The name (or key) of the field.
+	 * @param {Object} fieldOptions - The select options (e.g., list of choices) and other shared/common properties for the field
+	 * @param {Object} [opts] - Optional settings.
+	 * @param {boolean} [opts.override] - If true and the field already exists, it will be fully overridden.
+	 * @param {string} [opts.positionBefore] - Name of field to position this field before
+	 * @param {string} [opts.positionAfter] - Name of field to position this field after
+	 */
+	function addFieldSelect(
+		fieldName,
+		{options, size, ...commonFields} = {},
+		opts,
+	) {
+		return addField(
+			fieldName,
+			{
+				component: 'field-select',
+				options,
+				size,
+				...commonFields,
+			},
+			opts,
+		);
+	}
+
+	/**
+	 * Adds or updates a FieldOption in the form.
+	 * @param {string} fieldName - The name of the field
+	 * @param {string} fieldType - The field type for the OptionField component, either "checkbox" or "radio"
+	 * @param {Object} fieldOptions - The input options (e.g., list of choices) and other shared/common properties for the field
+	 * @param {Object} [opts] - Optional settings.
+	 * @param {boolean} [opts.override] - If true and the field already exists, it will be fully overridden.
+	 * @param {string} [opts.positionBefore] - Name of field to position this field before
+	 * @param {string} [opts.positionAfter] - Name of field to position this field after
+	 */
+	function addFieldOptions(
+		fieldName,
+		fieldType,
+		{options, value = [], ...commonFields},
+		opts = {},
+	) {
+		addField(
+			fieldName,
+			{
+				component: 'field-options',
+				type: fieldType,
+				options,
+				value,
+				...commonFields,
+			},
+			opts,
+		);
+	}
+
+	/**
+	 * Adds or updates a rich textarea field in the form.
+	 *
+	 * @param {string} fieldName - The name (or key) of the field.
+	 * @param {Object} fieldOptions - Configuration options for the field.
+	 * @param {Object} [opts] - Optional settings.
+	 * @param {boolean} [opts.override] - If true and the field already exists, it will be fully overridden.
+	 * @param {string} [opts.positionBefore] - Name of field to position this field before
+	 * @param {string} [opts.positionAfter] - Name of field to position this field after
+	 */
+	function addFieldRichTextArea(
+		fieldName,
+		{
+			size,
+			toolbar = 'bold italic superscript subscript | link',
+			plugins = ['link'],
+			...commonFields
+		} = {},
+		opts,
+	) {
+		return addField(
+			fieldName,
+			{
+				component: 'field-rich-textarea',
+				size,
+				toolbar,
+				plugins,
+				...commonFields,
+			},
+			opts,
+		);
+	}
+
+	/**
+	 * Adds or updates a textarea field in the form.
+	 *
+	 * @param {string} fieldName - The name (or key) of the field.
+	 * @param {Object} fieldOptions - Configuration options for the field.
+	 * @param {Object} [opts] - Optional settings.
+	 * @param {boolean} [opts.override] - If true and the field already exists, it will be fully overridden.
+	 * @param {string} [opts.positionBefore] - Name of field to position this field before
+	 * @param {string} [opts.positionAfter] - Name of field to position this field after
+	 */
+	function addFieldTextArea(fieldName, {size, ...commonFields} = {}, opts) {
+		return addField(
+			fieldName,
+			{
+				component: 'field-textarea',
+				size,
+				...commonFields,
+			},
+			opts,
+		);
+	}
+
+	/**
+	 * Adds or updates a textarea field in the form.
+	 *
+	 * @param {string} fieldName - The name (or key) of the field.
+	 * @param {Object} fieldOptions - Configuration options for the field.
+	 * @param {Object} [opts] - Optional settings.
+	 * @param {boolean} [opts.override] - If true and the field already exists, it will be fully overridden.
+	 */
+	function addFieldHtml(fieldName, {...commonFields} = {}, opts) {
+		return addField(
+			fieldName,
+			{
+				component: 'field-html',
+				...commonFields,
+			},
+			opts,
+		);
+	}
+
+	/**
+	 * Adds or updates a FieldCheckbox in the form.
+	 * @param {string} fieldName - The name of the field
+	 * @param {Object} fieldOptions - The input options (e.g., label) and other shared/common properties for the field
+	 * @param {Object} [opts] - Optional settings.
+	 * @param {boolean} [opts.override] - If true and the field already exists, it will be fully overridden.
+	 * @param {string} [opts.positionBefore] - Name of field to position this field before
+	 * @param {string} [opts.positionAfter] - Name of field to position this field after
+	 */
+	function addFieldCheckbox(
+		fieldName,
+		{value = false, ...commonFields},
+		opts = {},
+	) {
+		addField(
+			fieldName,
+			{
+				component: 'field-checkbox',
+				value,
+				...commonFields,
+			},
+			opts,
+		);
+	}
+
+	/**
+	 * Adds or updates a FieldPreparedContent in the form.
+	 * @param {string} fieldName - The name of the field
+	 * @param {Object} fieldOptions - The field options (e.g., preparedContent) and other shared/common properties for the field
+	 * @param {Object} [opts] - Optional settings.
+	 * @param {boolean} [opts.override] - If true and the field already exists, it will be fully overridden.
+	 */
+	function addFieldPreparedContent(
+		fieldName,
+		{value = false, ...commonFields},
+		opts = {},
+	) {
+		addField(
+			fieldName,
+			{
+				component: 'field-prepared-content',
+				value,
+				...commonFields,
+			},
+			opts,
+		);
+	}
+
+	/**
+	 * Adds or updates a custom component field in the form.
+	 * This is useful for rendering custom field components.
+	 * @param {string} fieldName - The name (or key) of the field.
+	 * @param {Object} fieldOptions - Contains the custom component and its props.
+	 * @param {Object} [fieldOptions.component] - The Vue component to render.
+	 * @param {Object} [fieldOptions.props] - Additional props to pass to the component.
+	 * @param {Object} [opts] - Optional settings.
+	 * @param {boolean} [opts.override] - If true and the field already exists, it will be fully overridden.
+	 * @param {string} [opts.positionBefore] - Name of field to position this field before
+	 * @param {string} [opts.positionAfter] - Name of field to position this field after
+	 */
+	function addFieldComponent(fieldName, {component, ...props}, opts = {}) {
+		if (!component) {
+			return;
+		}
+
+		return addField(
+			fieldName,
+			{
+				component,
+				...props,
+			},
+			opts,
+		);
+	}
+
+	return {
+		set,
+		setValue,
+		setValues,
+		setHiddenValue,
+		setCanSubmit,
+		getValue,
+		getHiddenValue,
+		removeFieldValue,
+		isFieldValueArray,
+		clearForm,
+		form,
+		connectWithPayload,
+		connectWithErrors,
+		setLocalesForSubmission,
+		setAction,
+		setMethod,
+		structuredErrors,
+		removeFieldError,
+
+		/** creating form */
+		initEmptyForm,
+		addPage,
+		addGroup,
+		addFieldText,
+		addFieldDate,
+		addFieldSelect,
+		addFieldOptions,
+		addFieldRichTextArea,
+		addFieldTextArea,
+		addFieldCheckbox,
+		addFieldComponent,
+		addFieldHtml,
+		addFieldPreparedContent,
+		getField,
+	};
+}

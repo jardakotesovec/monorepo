@@ -1,0 +1,96 @@
+<?php
+
+/**
+ * @file controllers/grid/navigationMenus/NavigationMenusGridRow.php
+ *
+ * Copyright (c) 2014-2021 Simon Fraser University
+ * Copyright (c) 2000-2021 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class NavigationMenusGridRow
+ *
+ * @ingroup controllers_grid_navigationMenus
+ *
+ * @brief NavigationMenu grid row definition
+ */
+
+namespace PKP\controllers\grid\navigationMenus;
+
+use APP\core\Application;
+use PKP\controllers\grid\GridRow;
+use PKP\linkAction\LinkAction;
+use PKP\linkAction\request\RemoteActionConfirmationModal;
+use PKP\linkAction\request\VueModal;
+
+class NavigationMenusGridRow extends GridRow
+{
+    //
+    // Overridden methods from GridRow
+    //
+    /**
+     * @copydoc GridRow::initialize()
+     *
+     * @param null|mixed $template
+     */
+    public function initialize($request, $template = null)
+    {
+        parent::initialize($request, $template);
+
+        $element = $this->getData();
+        assert($element instanceof \PKP\navigationMenu\NavigationMenu);
+
+        $rowId = $this->getId();
+
+        // Is this a new row or an existing row?
+        if (!empty($rowId) && is_numeric($rowId)) {
+            // Only add row actions if this is an existing row
+            $router = $request->getRouter();
+            $context = $request->getContext();
+
+            // Generate API URL for the Vue modal
+            $apiUrl = $request->getDispatcher()->url(
+                $request,
+                Application::ROUTE_API,
+                $context ? $context->getPath() : 'index',
+                'navigationMenus'
+            );
+
+            // Prepare navigation menu data for the Vue modal
+            $navigationMenuData = [
+                'id' => $element->getId(),
+                'title' => $element->getTitle(),
+                'areaName' => $element->getAreaName(),
+            ];
+
+            $this->addAction(
+                new LinkAction(
+                    'edit',
+                    new VueModal(
+                        'NavigationMenuManagerFormModal',
+                        [
+                            'navigationMenu' => $navigationMenuData,
+                            'apiUrl' => $apiUrl,
+                        ]
+                    ),
+                    __('grid.action.edit'),
+                    'edit'
+                )
+            );
+
+            $this->addAction(
+                new LinkAction(
+                    'remove',
+                    new RemoteActionConfirmationModal(
+                        $request->getSession(),
+                        __('common.confirmDelete'),
+                        __('common.remove'),
+                        $router->url($request, null, null, 'deleteNavigationMenu', null, ['navigationMenuId' => $rowId]),
+                        'negative'
+                    ),
+                    __('grid.action.remove'),
+                    'delete'
+                )
+            );
+        }
+    }
+}

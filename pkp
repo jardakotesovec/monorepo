@@ -1,0 +1,9 @@
+#!/bin/bash
+APP=$(cat app_config 2>/dev/null || echo "ojs")
+case "$1" in
+  switch) echo "${2:?Usage: ./pkp switch <ojs|omp|ops>}" > app_config
+          echo "Switched to $2" ;;
+  build)  PKP_APP=${2:-$APP} npm run build ;;
+  composer) cd pkp-lib && composer "${@:2}" ;;
+  *)      echo "Usage: ./pkp <switch|build|composer> [ojs|omp|ops]" ;;
+esac

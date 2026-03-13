@@ -1,0 +1,133 @@
+# katerina spiroska <kspiroska07@gmail.com>, 2023.
+# Mirko Spiroski <mspiroski@id-press.eu>, 2023.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2023-11-22 08:38+0000\n"
+"Last-Translator: Mirko Spiroski <mspiroski@id-press.eu>\n"
+"Language-Team: Macedonian <http://translate.pkp.sfu.ca/projects/ops/admin/mk/"
+">\n"
+"Language: mk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n==1 || n%10==1 ? 0 : 1;\n"
+"X-Generator: Weblate 4.18.2\n"
+
+msgid "admin.hostedContexts"
+msgstr "Хостирани сервери"
+
+msgid "admin.settings.redirect"
+msgstr "Серверско пренасочување"
+
+msgid "admin.settings.redirectInstructions"
+msgstr ""
+"Барања до главниот сајт ќе бидат пренасочени до овој сервер. Ова може да е "
+"корисно доколку сајтот хостира само еден сервер, на пример."
+
+msgid "admin.languages.confirmDisable"
+msgstr ""
+"Дали сте сигурни дека сакате да го оневозможите овој локал? Тоа може да "
+"влијае на хостираните сервери кои моментално го користат локалот."
+
+msgid "admin.locale.maybeIncomplete"
+msgstr "Обележаните локали може да се нецелосни."
+
+msgid "admin.languages.confirmUninstall"
+msgstr ""
+"Дали сте сигурни дека сакате да го деинсталирате овој локал? Тоа може да "
+"влијае врз хостираните сервери кои моментално го користат локалот."
+
+msgid "admin.languages.installNewLocalesInstructions"
+msgstr ""
+"Селектирајте ги било кои додатни локали за да инсталирате поддршка за во "
+"овој систем. Локалите мора да се инсталирани пред да бидат искористени за "
+"хостирање сервери. Погледнете ја ОПС документацијата за информации во врска "
+"со додавање поддршка за нови јазици."
+
+msgid "admin.languages.localeInstalled"
+msgstr "\"{$locale}\" локалот е инсталиран."
+
+msgid "admin.systemConfiguration"
+msgstr "ОПС Конфигурација"
+
+msgid "admin.contexts.create"
+msgstr "Креирај Сервер"
+
+msgid "admin.contexts.form.pathAlphaNumeric"
+msgstr ""
+"Патеката може да вклучува само букви, броеви и знаци _ и -. Мора да започне "
+"и да заврши со буква или број."
+
+msgid "admin.contexts.form.pathExists"
+msgstr "Патеката што ја дадовте е веќе во употреба од друг сервер."
+
+msgid "admin.contexts.form.primaryLocaleNotSupported"
+msgstr "Главниот локал мора да биде еден од поддржаните локали на серверот."
+
+msgid "admin.contexts.contextDescription"
+msgstr "Опис на серверот"
+
+msgid "admin.contexts.enableContextInstructions"
+msgstr "Овозможете овој препринт сервер да се појавува јавно на страницата"
+
+msgid "admin.settings.enableBulkEmails.description"
+msgstr ""
+"Избери хостирани сервери that should be allowed to send bulk emails. When "
+"this feature is enabled, a server manager will be able to send an email to "
+"all users registered with their server.<br><br>Misuse of this feature to "
+"send unsolicited email may violate anti-spam laws in some jurisdictions and "
+"may result in your server's emails being blocked as spam. Seek technical "
+"advice before enabling this feature and consider consulting with server "
+"managers to ensure it is used appropriately.<br><br>Further restrictions on "
+"this feature can be enabled for each server by visiting its settings wizard "
+"in the list of <a href=\"{$hostedContextsUrl}\">Hosted Servers</a>."
+
+msgid "admin.settings.disableBulkEmailRoles.description"
+msgstr ""
+"Менаџерот на серверот will be unable to send bulk emails to any of the roles "
+"selected below. Use this setting to limit abuse of the email notification "
+"feature. For example, it may be safer to disable bulk emails to readers, "
+"authors, or other large user groups that have not consented to receive such "
+"emails.<br><br>The bulk email feature can be disabled completely for this "
+"server in <a href=\"{$siteSettingsUrl}\">Admin > Site Settings</a>."
+
+msgid "admin.settings.disableBulkEmailRoles.contextDisabled"
+msgstr ""
+"Опцијагта мноштво имејли has been disabled for this server. Enable this "
+"feature in <a href=\"{$siteSettingsUrl}\">Admin > Site Settings</a>."
+
+msgid "admin.siteManagement.description"
+msgstr ""
+"Додадете, уредете или отстранете услуга за предпечатење од оваа страница и "
+"управувајте со поставките на страницата."
+
+msgid "admin.settings.statistics.geo.description"
+msgstr ""
+"Изберете го типот на статистика за географска употреба кој може да се собере "
+"од серверите на оваа страница. Подетална географска статистика може "
+"значително да ја зголеми големината на базата на податоци и во некои ретки "
+"случаи може да ја нарушат анонимноста на вашите посетители. Секој сервер "
+"може да го конфигурира ова подесување различно, но серверот никогаш не може "
+"да собере подетална евиденција од она што е конфигурирано тука. На пример, "
+"ако страницата подржува само држава или регион, серверот може да избере "
+"држава или регион или само држава. Серверот нема да може да следи држава, "
+"регион или град."
+
+msgid "admin.settings.statistics.institutions.description"
+msgstr ""
+"Овозможете институционална статистика ако сакате серверите на оваа страница "
+"да можат да ја собираат статистиката на користење од институцијата. "
+"Серверите ќе треба да ја додадат институцијата и нејзините IP домени со цел "
+"да ја користат оваа можност. Овозможувањето на институционалната статистика "
+"може да ја зголеми значително вашата база на податоци."
+
+msgid "admin.settings.statistics.sushi.public.description"
+msgstr ""
+"Дали да се направат или не SUSHI API локациите јавно достапни за сите "
+"сервери на оваа страница. Ако ги овозможите јавни API локациите, секој "
+"сервер може го да прескокнува ова подесување и да ги направи нивните "
+"статистики приватни. Меѓутоа, ако ги оневозможите јавни API локациите, "
+"серверите нема да можат да го направат нивниот API јавен."
+
+msgid "admin.settings.statistics.sushiPlatform.isSiteSushiPlatform"
+msgstr "Користете ја страницата како платформа за сите сервери."

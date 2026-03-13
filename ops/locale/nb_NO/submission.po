@@ -1,0 +1,242 @@
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2021-01-20 02:59+0000\n"
+"Last-Translator: Eirik Hanssen <eirikh@oslomet.no>\n"
+"Language-Team: Norwegian Bokmål <http://translate.pkp.sfu.ca/projects/ops/"
+"submissions/nb_NO/>\n"
+"Language: nb_NO\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.9.1\n"
+
+msgid "submission.submit.userGroup"
+msgstr "Lever inn i min rolle som ..."
+
+msgid "submission.upload.selectComponent"
+msgstr "Velg preprintkomponent"
+
+msgid "submission.title"
+msgstr "Tittel"
+
+msgid "submission.submit.newSubmissionSingle"
+msgstr "Ny innlevering"
+
+msgid "submission.abstract.wordCount.description"
+msgstr "Sammendraget må være {$wordCount} ord eller færre."
+
+msgid "submission.submit.noContext"
+msgstr "Denne innleveringens tjener ble ikke funnet."
+
+msgid "submission.galleyFiles"
+msgstr "Oppsettfiler"
+
+msgid "submission.upload.fileContents"
+msgstr "Preprintkomponent"
+
+msgid "submission.complete"
+msgstr "Utført"
+
+msgid "submission.submit.submissionChecklist"
+msgstr "Sjekkliste"
+
+msgid "submission.submit.contributorRole"
+msgstr "Bidragsyterens rolle"
+
+msgid "submission.metadataDescription"
+msgstr ""
+"Disse spesifikasjonene er basert på metadatasettet Dublin Core, en "
+"internasjonal standard som bl.a. brukes til å beskrive innhold."
+
+msgid "submission.sectionOptions"
+msgstr ""
+
+msgid "catalog.browseTitles"
+msgstr "{$numTitles} titler"
+
+msgid "catalog.category.heading"
+msgstr "Alle objekter"
+
+msgid "galley.editPublishedDisabled"
+msgstr ""
+"Oppsettene til denne versjonen kan ikke redigeres fordi den allerede har "
+"blitt deponert."
+
+msgid "galley.publicationNotFound"
+msgstr "Versjonen til dette oppsettet ble ikke funnet."
+
+msgid "publication.invalidSection"
+msgstr "Seksjonen til denne versjonen ble ikke funnet."
+
+msgid "publication.inactiveSection"
+msgstr "{$section} (Inaktiv)"
+
+msgid "preprint.entry"
+msgstr ""
+
+msgid "publication.issue.success"
+msgstr ""
+
+msgid "publication.datePublished.description"
+msgstr ""
+
+msgid "publication.relation"
+msgstr ""
+
+msgid "publication.relation.label"
+msgstr ""
+
+msgid "publication.relation.description"
+msgstr ""
+
+msgid "publication.relation.none"
+msgstr ""
+
+msgid "publication.relation.published"
+msgstr ""
+
+msgid "publication.relation.vorDoi"
+msgstr ""
+
+msgid "publication.publish.relationStatus"
+msgstr ""
+
+msgid "publication.publish.relationStatus.none"
+msgstr ""
+
+msgid "publication.publish.relationStatus.submitted"
+msgstr ""
+
+msgid "publication.publish.relationStatus.published.noDoi"
+msgstr ""
+
+msgid "publication.publish.relationStatus.published"
+msgstr ""
+
+msgid "publication.publish.confirmation"
+msgstr ""
+
+msgid "author.submit.authorsCanNotPublish"
+msgstr ""
+
+msgid "publication.status.published"
+msgstr ""
+
+msgid "submission.status.scheduled"
+msgstr ""
+
+msgid "publication.status.unscheduled"
+msgstr ""
+
+msgid "submission.publication"
+msgstr ""
+
+msgid "submission.publications"
+msgstr ""
+
+msgid "publication.copyrightYearBasis.issueDescription"
+msgstr ""
+
+msgid "publication.copyrightYearBasis.submissionDescription"
+msgstr ""
+
+msgid "publication.datePublished"
+msgstr ""
+
+msgid "publication.editDisabled"
+msgstr ""
+
+msgid "publication.event.published"
+msgstr ""
+
+msgid "publication.event.scheduled"
+msgstr ""
+
+msgid "publication.event.unpublished"
+msgstr ""
+
+msgid "publication.event.versionPublished"
+msgstr ""
+
+msgid "publication.event.versionScheduled"
+msgstr ""
+
+msgid "publication.event.versionUnpublished"
+msgstr ""
+
+msgid "publication.invalidSubmission"
+msgstr ""
+
+msgid "publication.publish"
+msgstr ""
+
+msgid "publication.publish.requirements"
+msgstr ""
+
+msgid "publication.required.declined"
+msgstr ""
+
+msgid "publication.required.reviewStage"
+msgstr ""
+
+msgid "submission.license.description"
+msgstr ""
+
+msgid "submission.copyrightHolder.description"
+msgstr ""
+
+msgid "submission.copyrightOther.description"
+msgstr ""
+
+msgid "publication.unpublish"
+msgstr ""
+
+msgid "publication.unpublish.confirm"
+msgstr ""
+
+msgid "publication.unschedule.confirm"
+msgstr ""
+
+msgid "publication.version.details"
+msgstr ""
+
+#, fuzzy
+msgid "submission.queries.production"
+msgstr ""
+
+msgid "doi.submission.incorrectContext"
+msgstr ""
+
+msgid "submission.layout.viewGalley"
+msgstr ""
+
+msgid "galley.cantEditPublished"
+msgstr ""
+
+msgid "submission.licenseSection.description"
+msgstr ""
+
+msgid "submission.licenseUrl.missing"
+msgstr ""
+
+msgid "submission.submit.complete.canPost"
+msgstr ""
+
+msgid "submission.submit.complete.canNotPost"
+msgstr ""
+
+msgid "submission.wizard.confirmSubmit"
+msgstr ""
+
+msgid "submission.wizard.confirmSubmit.canPublish"
+msgstr ""
+
+msgid "submission.wizard.sectionClosed.message"
+msgstr ""
+
+msgid "submission.forTheEditors"
+msgstr ""
+
+msgid "submission.wizard.commentsForTheEditor.description"
+msgstr ""

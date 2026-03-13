@@ -1,0 +1,64 @@
+<template>
+	<TableCell>
+		<div class="flex flex-col items-start py-2 text-start">
+			<span class="flex gap-x-2 text-base-normal">
+				<Icon :icon="workItemType.icon" class="h-4 w-4"></Icon>
+				{{ workItemType.type }}
+			</span>
+			<div class="-ms-3">
+				<PkpButton
+					:is-link="true"
+					@click="() => discussionManagerStore.discussionView({workItem})"
+				>
+					<span
+						:id="`discussion_name_${workItem.id}`"
+						class="block text-wrap text-start"
+					>
+						{{ workItem.title }}
+					</span>
+				</PkpButton>
+			</div>
+			<span>{{ workItemType.createdByText }}: {{ workItemOwner }}</span>
+		</div>
+	</TableCell>
+</template>
+
+<script setup>
+import {computed} from 'vue';
+import TableCell from '@/components/Table/TableCell.vue';
+import Icon from '@/components/Icon/Icon.vue';
+import PkpButton from '@/components/Button/Button.vue';
+
+import {t} from '@/utils/i18n';
+import {useDiscussionManagerStore} from './discussionManagerStore';
+const discussionManagerStore = useDiscussionManagerStore();
+
+const props = defineProps({
+	workItem: {type: Object, required: true},
+});
+
+const workItemType = computed(() => {
+	return props.workItem.type === pkp.const.EDITORIAL_TASK_TYPE_TASK
+		? {
+				type: t('submission.query.task'),
+				icon: 'Task',
+				createdByText: t('task.owner'),
+			}
+		: {
+				type: t('discussion.name'),
+				icon: 'Discussion',
+				createdByText: t('common.createdBy'),
+			};
+});
+
+// For a task, the owner is the responsible participant; for a discussion, it's the creator.
+const workItemOwner = computed(() => {
+	return props.workItem.type === pkp.const.EDITORIAL_TASK_TYPE_TASK
+		? props.workItem.participants.find(
+				(participant) => participant.isResponsible,
+			)?.username
+		: props.workItem.createdBy
+			? props.workItem.createdByUsername
+			: t('mailable.system').toLowerCase();
+});
+</script>

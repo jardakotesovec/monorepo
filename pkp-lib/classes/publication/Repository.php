@@ -1,0 +1,1191 @@
+<?php
+
+/**
+ * @file classes/publication/Repository.php
+ *
+ * Copyright (c) 2014-2026 Simon Fraser University
+ * Copyright (c) 2000-2026 John Willinsky
+ * Distributed under the GNU GPL v3. For full terms see the file docs/COPYING.
+ *
+ * @class Repository
+ *
+ * @brief A repository to find and manage publications.
+ */
+
+namespace PKP\publication;
+
+use APP\core\Application;
+use APP\core\Request;
+use APP\facades\Repo;
+use APP\file\PublicFileManager;
+use APP\publication\DAO;
+use APP\publication\enums\VersionStage;
+use APP\publication\Publication;
+use APP\submission\Submission;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Enumerable;
+use PKP\API\v1\peerReviews\resources\PublicationPeerReviewResource;
+use PKP\context\Context;
+use PKP\core\Core;
+use PKP\core\PKPApplication;
+use PKP\core\PKPString;
+use PKP\dataCitation\DataCitation;
+use PKP\db\DAORegistry;
+use PKP\doi\Doi;
+use PKP\doi\exceptions\DoiException;
+use PKP\facades\Locale;
+use PKP\file\TemporaryFileManager;
+use PKP\log\event\PKPSubmissionEventLogEntry;
+use PKP\observers\events\PublicationPublished;
+use PKP\observers\events\PublicationUnpublished;
+use PKP\orcid\OrcidManager;
+use PKP\plugins\Hook;
+use PKP\security\Validation;
+use PKP\services\PKPSchemaService;
+use PKP\submission\Genre;
+use PKP\submission\PKPSubmission;
+use PKP\submission\reviewRound\authorResponse\AuthorResponse;
+use PKP\submission\reviewRound\ReviewRoundDAO;
+use PKP\submission\traits\HasWordCountValidation;
+use PKP\validation\ValidatorFactory;
+
+abstract class Repository
+{
+    use HasWordCountValidation;
+
+    /** @var DAO */
+    public $dao;
+
+    /** @var string $schemaMap The name of the class to map this entity to its schema */
+    public $schemaMap = maps\Schema::class;
+
+    /** @var Request */
+    protected $request;
+
+    /** @var PKPSchemaService<Publication> */
+    protected $schemaService;
+
+    public function __construct(DAO $dao, Request $request, PKPSchemaService $schemaService)
+    {
+        $this->dao = $dao;
+        $this->request = $request;
+        $this->schemaService = $schemaService;
+    }
+
+    /** @copydoc DAO::newDataObject() */
+    public function newDataObject(array $params = []): Publication
+    {
+        $object = $this->dao->newDataObject();
+        if (!empty($params)) {
+            $object->setAllData($params);
+        }
+        return $object;
+    }
+
+    /** @copydoc DAO::exists() */
+    public function exists(int $id, ?int $submissionId = null): bool
+    {
+        return $this->dao->exists($id, $submissionId);
+    }
+
+    /** @copydoc DAO::get() */
+    public function get(int $id, ?int $submissionId = null): ?Publication
+    {
+        return $this->dao->get($id, $submissionId);
+    }
+
+    /** @copydoc DAO::getCollector() */
+    public function getCollector(): Collector
+    {
+        return app(Collector::class);
+    }
+
+    /**
+     * Get an instance of the map class for mapping
+     * publications to their schema
+     *
+     * @param Genre[] $genres
+     */
+    public function getSchemaMap(Submission $submission, array $genres): maps\Schema
+    {
+        return app('maps')->withExtensions(
+            $this->schemaMap,
+            [
+                'submission' => $submission,
+                'genres' => $genres,
+            ]
+        );
+    }
+
+    /** @copydoc DAO:: getIdsBySetting()*/
+    public function getIdsBySetting(string $settingName, $settingValue, int $contextId): Enumerable
+    {
+        return $this->dao->getIdsBySetting($settingName, $settingValue, $contextId);
+    }
+
+    /** @copydoc DAO:: getDateBoundaries()*/
+    public function getDateBoundaries(Collector $query): object
+    {
+        return $this->dao->getDateBoundaries($query);
+    }
+
+    /**
+     * Validate properties for a publication
+     *
+     * Perform validation checks on data used to add or edit a publication.
+     *
+     * @param Publication|null $publication The publication being edited. Pass `null` if creating a new publication
+     * @param array $props A key/value array with the new data to validate
+     *
+     * @return array A key/value array with validation errors. Empty if no errors
+     *
+     * @hook Publication::validate [[&$errors, $publication, $props, $allowedLocales, $primaryLocale]]
+     */
+    public function validate(?Publication $publication, array $props, Submission $submission, Context $context): array
+    {
+        $primaryLocale = $submission->getData('locale');
+        $allowedLocales = $submission->getpublicationLanguages($context->getSupportedSubmissionMetadataLocales());
+
+        $errors = [];
+
+        $validator = ValidatorFactory::make(
+            $props,
+            $this->schemaService->getValidationRules($this->dao->schema, $allowedLocales),
+            $this->getErrorMessageOverrides(),
+        );
+
+        ValidatorFactory::required(
+            $validator,
+            $publication,
+            $this->schemaService->getRequiredProps($this->dao->schema),
+            $this->schemaService->getMultilingualProps($this->dao->schema),
+            $allowedLocales,
+            $primaryLocale
+        );
+
+        ValidatorFactory::allowedLocales($validator, $this->schemaService->getMultilingualProps($this->dao->schema), $allowedLocales);
+
+        // The submissionId must match an existing submission
+        if (isset($props['submissionId'])) {
+            $validator->after(function ($validator) use ($props) {
+                if (!$validator->errors()->get('submissionId')) {
+                    $submission = Repo::submission()->get($props['submissionId']);
+                    if (!$submission) {
+                        $validator->errors()->add('submissionId', __('publication.invalidSubmission'));
+                    }
+                }
+            });
+        }
+
+
+        // A title must be provided if the submission is not still in progress
+        if (!$submission->getData('submissionProgress')) {
+            $validator->after(function ($validator) use ($props, $publication, $primaryLocale) {
+                $title = isset($props['title']) && isset($props['title'][$primaryLocale])
+                    ? $props['title'][$primaryLocale]
+                    : $publication?->getData('title', $primaryLocale);
+                if (empty($title)) {
+                    $validator->errors()->add('title.' . $primaryLocale, __('validator.required'));
+                }
+            });
+        }
+
+        // The urlPath must not be used in a publication attached to
+        // any submission other than this publication's submission
+        if (strlen($props['urlPath'] ?? '')) {
+            $validator->after(function ($validator) use ($publication, $props) {
+                if (!$validator->errors()->get('urlPath')) {
+                    if (ctype_digit((string) $props['urlPath'])) {
+                        $validator->errors()->add('urlPath', __('publication.urlPath.numberInvalid'));
+                        return;
+                    }
+
+                    // If there is no submissionId the validator will throw it back anyway
+                    if (is_null($publication) && !empty($props['submissionId'])) {
+                        $submission = Repo::submission()->get($props['submissionId']);
+                    } elseif (!is_null($publication)) {
+                        $submission = Repo::submission()->get($publication->getData('submissionId'));
+                    }
+
+                    // If there's no submission we can't validate but the validator should
+                    // fail anyway, so we can return without setting a separate validation
+                    // error.
+                    if (!$submission) {
+                        return;
+                    }
+
+                    if ($this->dao->isDuplicateUrlPath($props['urlPath'], $submission->getId(), $submission->getData('contextId'))) {
+                        $validator->errors()->add('urlPath', __('publication.urlPath.duplicate'));
+                    }
+                }
+            });
+        }
+
+        // validate the requirement of Plain language summary
+        $validator->after(function ($validator) use ($props, $context, $primaryLocale) {
+            if ($context->getData('plainLanguageSummary') === Context::METADATA_REQUIRE) {
+                if (empty($props['plainLanguageSummary']) || !isset($props['plainLanguageSummary'][$primaryLocale])) {
+                    $validator->errors()->add('plainLanguageSummary.' . $primaryLocale, __('validator.required'));
+                }
+            }
+        });
+
+        // If a new file has been uploaded, check that the temporary file exists and
+        // the current user owns it
+        $user = Application::get()->getRequest()->getUser();
+        ValidatorFactory::temporaryFilesExist(
+            $validator,
+            ['coverImage'],
+            ['coverImage'],
+            $props,
+            $allowedLocales,
+            $user ? $user->getId() : null
+        );
+
+        if ($validator->fails()) {
+            $errors = $this->schemaService->formatValidationErrors($validator->errors());
+        }
+
+        Hook::call('Publication::validate', [&$errors, $publication, $props, $allowedLocales, $primaryLocale]);
+
+        return $errors;
+    }
+
+    /**
+     * Validate a publication against publishing requirements
+     *
+     * This validation check should return zero errors before
+     * publishing a publication.
+     *
+     * It should not be necessary to repeat validation rules from
+     * self::validate(). These rules should be applied during all add
+     * or edit actions.
+     *
+     * This additional check should be used when a journal or press
+     * wants to enforce particular publishing requirements, such as
+     * requiring certain metadata or other information.
+     *
+     * @param array $allowedLocales The context's supported submission metadata locales
+     * @param string $primaryLocale The submission's primary locale
+     *
+     * @hook Publication::validatePublish [[&$errors, $publication, $submission, $allowedLocales, $primaryLocale]]
+     */
+    public function validatePublish(Publication $publication, Submission $submission, array $allowedLocales, string $primaryLocale): array
+    {
+        $errors = [];
+
+        // Don't allow declined submissions to be published
+        if ($submission->getData('status') === PKPSubmission::STATUS_DECLINED) {
+            $errors['declined'] = __('publication.required.declined');
+        }
+
+        // Orcid errors
+        if (OrcidManager::isEnabled()) {
+            $orcidIds = [];
+            foreach ($publication->getData('authors') as $author) {
+                $authorOrcid = $author->getData('orcid');
+                if ($authorOrcid and in_array($authorOrcid, $orcidIds)) {
+                    $errors['hasDuplicateOrcids'] = __('orcid.verify.duplicateOrcidAuthor');
+                } elseif ($authorOrcid && !$author->getData('orcidAccessToken')) {
+                    $errors['hasUnauthenticatedOrcid'] = __('orcid.verify.hasUnauthenticatedOrcid');
+                } else {
+                    $orcidIds[] = $authorOrcid;
+                }
+            }
+        }
+
+        Hook::call('Publication::validatePublish', [&$errors, $publication, $submission, $allowedLocales, $primaryLocale]);
+
+        return $errors;
+    }
+
+    /**
+     * @copydoc DAO::insert()
+     *
+     * @param $submissionStatus
+     *  - PKPSubmission::STATUS_... constant: Set the submission status to the specified constant
+     *  - null: Determine the appropriate status based on the submission and publications
+     *  - false: Do not set the submission status
+     *
+     * @hook Publication::add [[&$publication]]
+     */
+    public function add(Publication $publication, false|int|null $submissionStatus = null): int
+    {
+        $publication->stampCreated();
+        $publicationId = $this->dao->insert($publication);
+        $publication = Repo::publication()->get($publicationId);
+        $submission = Repo::submission()->get($publication->getData('submissionId'));
+
+        // Move uploaded files into place and update the settings
+        if ($publication->getData('coverImage')) {
+            $userId = $this->request->getUser() ? $this->request->getUser()->getId() : null;
+
+            $submissionContext = $this->request->getContext();
+            if ($submissionContext->getId() !== $submission->getData('contextId')) {
+                $submissionContext = app()->get('context')->get($submission->getData('contextId'));
+            }
+
+            $supportedLocales = $submission->getPublicationLanguages($submissionContext->getSupportedSubmissionMetadataLocales());
+            foreach ($supportedLocales as $localeKey) {
+                if (!array_key_exists($localeKey, $publication->getData('coverImage'))) {
+                    continue;
+                }
+                $value[$localeKey] = $this->_saveFileParam($publication, $submission, $publication->getData('coverImage', $localeKey), 'coverImage', $userId, $localeKey, true);
+            }
+
+            $this->edit($publication, ['coverImage' => $value]);
+        }
+
+        Hook::call('Publication::add', [&$publication]);
+
+        // Update a submission's status based on the status of its publications
+        if ($submissionStatus !== false) {
+            Repo::submission()->updateStatus($submission, $submissionStatus);
+        }
+        Repo::submission()->updateCurrentPublication($submission);
+
+        return $publication->getId();
+    }
+
+    /**
+     * Create a new version of a publication
+     *
+     * Makes a copy of an existing publication, without the datePublished,
+     * and makes copies of all associated objects.
+     *
+     * @hook Publication::version [[&$newPublication, $publication]]
+     */
+    public function version(Publication $publication, ?VersionStage $versionStage = null, bool $isMinorVersion = true, ?int $submissionStatus = null): int
+    {
+        $newPublication = clone $publication;
+        $newPublication->setData('id', null);
+        $newPublication->setData('sourcePublicationId', $publication->getId());
+        $newPublication->setData('datePublished', null);
+        $newPublication->setData('status', Publication::STATUS_QUEUED);
+
+        $submission = Repo::submission()->get($publication->getData('submissionId'));
+
+        // VersionStage Update
+        $newVersionStage = $versionStage;
+
+        if (!isset($newVersionStage)) {
+            $currentVersionInfo = $newPublication->getVersion();
+            if (isset($currentVersionInfo)) {
+                $newVersionStage = $currentVersionInfo->stage;
+            }
+        }
+
+        if (isset($newVersionStage)) {
+            $newVersionInfo = Repo::submission()->getNextAvailableVersion($submission, $newVersionStage, $isMinorVersion);
+            $newPublication->setVersion($newVersionInfo);
+        }
+
+        $newPublication->stampModified();
+
+        $request = Application::get()->getRequest();
+        $context = $request->getContext();
+
+        if ($context->getData(Context::SETTING_DOI_VERSIONING) && !$isMinorVersion) {
+            $newPublication->setData('doiId', null);
+        }
+
+        $citations = $newPublication->getData('citations');
+        // remove citations from the new publication
+        // so that they are not re-processed when inserting the new publication
+        $newPublication->setData('citations', null);
+        $newPublication->setData('citationsRaw', null);
+        $newId = $this->add($newPublication, $submissionStatus);
+        // insert citations as they are for the new publication
+        Repo::citation()->copyCitations($citations, $newId);
+
+        $newPublication = Repo::publication()->get($newId);
+
+        $authors = $publication->getData('authors');
+        if (!empty($authors)) {
+            foreach ($authors as $author) {
+                $newAuthor = clone $author;
+                $newAuthor->setData('id', null);
+                $newAuthor->setData('publicationId', $newPublication->getId());
+                $newAuthorId = Repo::author()->add($newAuthor);
+
+                if ($author->getId() === $publication->getData('primaryContactId')) {
+                    $this->edit($newPublication, ['primaryContactId' => $newAuthorId]);
+                }
+            }
+        }
+
+        // Clone data citations if any
+        $dataCitations = $publication->getData('dataCitations');
+        foreach ($dataCitations as $dataCitation) {
+            $data = $dataCitation->toArray();
+            unset($data['dataCitationId']);
+            $data['publicationId'] = $newPublication->getId();
+            $newDataCitation = DataCitation::create($data);
+        }
+
+        $genreDao = DAORegistry::getDAO('GenreDAO'); /** @var \PKP\submission\GenreDAO $genreDao */
+        $genres = $genreDao->getEnabledByContextId($context->getId());
+
+        $jatsFile = Repo::jats()
+            ->getJatsFile($publication->getId(), null, $genres->toArray());
+
+        if (!$jatsFile->isDefaultContent) {
+            Repo::submissionFile()
+                ->versionSubmissionFile($jatsFile->submissionFile, $newPublication);
+        }
+
+        $newPublication = Repo::publication()->get($newPublication->getId());
+
+        Hook::call('Publication::version', [&$newPublication, $publication]);
+
+        $eventLog = Repo::eventLog()->newDataObject([
+            'assocType' => PKPApplication::ASSOC_TYPE_SUBMISSION,
+            'assocId' => $submission->getId(),
+            'eventType' => PKPSubmissionEventLogEntry::SUBMISSION_LOG_CREATE_VERSION,
+            'userId' => Validation::loggedInAs() ?? $request->getUser()?->getId(),
+            'message' => 'publication.event.versionCreated',
+            'isTranslated' => false,
+            'dateLogged' => Core::getCurrentDate(),
+        ]);
+        Repo::eventLog()->add($eventLog);
+
+        return $newPublication->getId();
+    }
+
+    /** @copydoc DAO::update() */
+    public function edit(Publication $publication, array $params): Publication
+    {
+        $submission = Repo::submission()->get($publication->getData('submissionId'));
+        $userId = $this->request->getUser()?->getId();
+
+        // Move uploaded files into place and update the params
+        if (array_key_exists('coverImage', $params)) {
+            $submissionContext = $this->request->getContext();
+            if ($submissionContext->getId() !== $submission->getData('contextId')) {
+                $submissionContext = app()->get('context')->get($submission->getData('contextId'));
+            }
+
+            $supportedLocales = $submission->getPublicationLanguages($submissionContext->getSupportedSubmissionMetadataLocales());
+            foreach ($supportedLocales as $localeKey) {
+                if (!array_key_exists($localeKey, $params['coverImage'])) {
+                    continue;
+                }
+                $params['coverImage'][$localeKey] = $this->_saveFileParam($publication, $submission, $params['coverImage'][$localeKey], 'coverImage', $userId, $localeKey, true);
+            }
+        }
+
+        $newPublication = Repo::publication()->newDataObject(array_merge($publication->_data, $params));
+        $newPublication->stampModified();
+
+        Hook::call('Publication::edit', [&$newPublication, $publication, $params, $this->request]);
+
+        $this->dao->update($newPublication, $publication);
+
+        $newPublication = Repo::publication()->get($newPublication->getId());
+
+        $submission = Repo::submission()->get($newPublication->getData('submissionId'));
+
+        // Log an event when publication data is updated
+        $eventLog = Repo::eventLog()->newDataObject([
+            'assocType' => PKPApplication::ASSOC_TYPE_SUBMISSION,
+            'assocId' => $submission->getId(),
+            'eventType' => PKPSubmissionEventLogEntry::SUBMISSION_LOG_METADATA_UPDATE,
+            'userId' => Validation::loggedInAs() ?? $userId,
+            'message' => 'submission.event.general.metadataUpdated',
+            'isTranslated' => false,
+            'dateLogged' => Core::getCurrentDate(),
+        ]);
+        Repo::eventLog()->add($eventLog);
+
+        return $newPublication;
+    }
+
+    /**
+     * Publish a publication
+     *
+     * This method performs all actions needed when publishing an item, such
+     * as setting metadata, logging events, updating the search index, etc.
+     *
+     * @param $submissionStatus
+     *  - PKPSubmission::STATUS_... constant: Set the submission status to the specified constant
+     *  - null: Determine the appropriate status based on the submission and publications
+     *  - false: Do not set the submission status
+     *
+     * @throws \Exception
+     *
+     * @see self::setStatusOnPublish()
+     *
+     * @hook Publication::publish::before [[&$newPublication, $publication]]
+     */
+    public function publish(Publication $publication, false|int|null $submissionStatus = null): void
+    {
+        $newPublication = clone $publication;
+        $newPublication->stampModified();
+
+        $this->setStatusOnPublish($newPublication);
+
+        // Set the copyright and license information
+        $submission = Repo::submission()->get($newPublication->getData('submissionId'));
+
+        $itsPublished = ($newPublication->getData('status') === PKPPublication::STATUS_PUBLISHED);
+
+        if ($itsPublished && !$newPublication->getData('copyrightHolder')) {
+            $newPublication->setData(
+                'copyrightHolder',
+                $submission->_getContextLicenseFieldValue(
+                    null,
+                    PKPSubmission::PERMISSIONS_FIELD_COPYRIGHT_HOLDER,
+                    $newPublication
+                )
+            );
+        }
+
+        if ($itsPublished && !$newPublication->getData('copyrightYear')) {
+            $newPublication->setData(
+                'copyrightYear',
+                $submission->_getContextLicenseFieldValue(
+                    null,
+                    PKPSubmission::PERMISSIONS_FIELD_COPYRIGHT_YEAR,
+                    $newPublication
+                )
+            );
+        }
+
+        if ($itsPublished && !$newPublication->getData('licenseUrl')) {
+            $newPublication->setData(
+                'licenseUrl',
+                $submission->_getContextLicenseFieldValue(
+                    null,
+                    PKPSubmission::PERMISSIONS_FIELD_LICENSE_URL,
+                    $newPublication
+                )
+            );
+        }
+
+        // Update publication version data
+        $currentVersionInfo = $newPublication->getVersion();
+        if (!isset($currentVersionInfo)) {
+            $nextAvailableVersion = Repo::submission()->getNextAvailableVersion($submission, Publication::DEFAULT_VERSION_STAGE, false);
+
+            $newPublication->setVersion($nextAvailableVersion);
+        }
+
+        Hook::call('Publication::publish::before', [&$newPublication, $publication]);
+
+        $this->dao->update($newPublication);
+
+        $newPublication = Repo::publication()->get($newPublication->getId());
+        $submission = Repo::submission()->get($newPublication->getData('submissionId'));
+
+        // Update a submission's status based on the status of its publications
+        if ($newPublication->getData('status') !== $publication->getData('status')) {
+            if ($submissionStatus !== false) {
+                Repo::submission()->updateStatus($submission, $submissionStatus);
+            }
+            Repo::submission()->updateCurrentPublication($submission);
+            $submission = Repo::submission()->get($submission->getId());
+        }
+
+        $msg = ($newPublication->getData('status') === Publication::STATUS_SCHEDULED) ? 'publication.event.scheduled' : 'publication.event.published';
+
+        // Log an event when publication is published. Adjust the message depending
+        // on whether this is the first publication or a subsequent version
+        if (count($submission->getData('publications')) > 1) {
+            $msg = ($newPublication->getData('status') === Publication::STATUS_SCHEDULED) ? 'publication.event.versionScheduled' : 'publication.event.versionPublished';
+        }
+
+        $eventLog = Repo::eventLog()->newDataObject([
+            'assocType' => PKPApplication::ASSOC_TYPE_SUBMISSION,
+            'assocId' => $submission->getId(),
+            'eventType' => PKPSubmissionEventLogEntry::SUBMISSION_LOG_METADATA_PUBLISH,
+            'userId' => Validation::loggedInAs() ?? $this->request->getUser()?->getId(),
+            'message' => $msg,
+            'isTranslated' => false,
+            'dateLogged' => Core::getCurrentDate()
+        ]);
+        Repo::eventLog()->add($eventLog);
+
+        $context = $submission->getData('contextId') === Application::get()->getRequest()->getContext()?->getId()
+        ? Application::get()->getRequest()->getContext()
+        : app()->get('context')->get($submission->getData('contextId'));
+
+        // Mark DOIs stale (if applicable).
+        if ($newPublication->getData('status') === Publication::STATUS_PUBLISHED) {
+            if ($context->getData(Context::SETTING_DOI_VERSIONING)) {
+                $isMajorVersion = $newPublication->getData('versionStage') != $publication->getData('versionStage') ||
+                    $newPublication->getData('versionMajor') != $publication->getData('versionMajor');
+                // if a major version is published, mark all submission's DOIs stale, so that their relationships can be updated
+                if ($isMajorVersion) {
+                    $staleDoiIds = Repo::doi()->getDoisForSubmission($newPublication->getData('submissionId'));
+                    Repo::doi()->markStale($staleDoiIds);
+                } elseif ($newPublication->getData('versionMinor') != 0) {
+                    // if it is the last published minor version of that version stage and major,
+                    // mark the publication's DOIs stale
+                    // so that the metadata, e.g. URL, can be updated
+                    $lastMinorPublication = Repo::publication()->getCollector()
+                        ->filterBySubmissionIds([$newPublication->getData('submissionId')])
+                        ->filterByVersionStage($newPublication->getData('versionStage'))
+                        ->filterByVersionMajor($newPublication->getData('versionMajor'))
+                        ->filterByStatus([PKPSubmission::STATUS_PUBLISHED])
+                        ->orderByVersion()
+                        ->getMany()
+                        ->last(); // minor versions are sorted ASC, so get only the last
+                    if ($newPublication->getId() == $lastMinorPublication->getId()) {
+                        $staleDoiIds = Repo::doi()->getDoisForPublication($newPublication);
+                        Repo::doi()->markStale($staleDoiIds);
+                    }
+                }
+            } else {
+                // Mark publication's DOIs stale only if this is submission's current (most mature) publication, because
+                // only then the DOI metadata needs to be re-deposited.
+                // For example, it could be that AO is published after a VoR is published.
+                if ($submission->getData('currentPublicationId') === $newPublication->getId()) {
+                    $staleDoiIds = Repo::doi()->getDoisForPublication($newPublication);
+                    Repo::doi()->markStale($staleDoiIds);
+                }
+            }
+        }
+
+        Hook::call(
+            'Publication::publish',
+            [
+                &$newPublication,
+                $publication,
+                $submission
+            ]
+        );
+
+        event(new PublicationPublished($newPublication, $publication, $submission, $context));
+    }
+
+    /**
+     * Set the status when an item is published
+     *
+     * Each application may handle publishing in a different way. Implement this method
+     * in an app-specific child class by assigning `status` and `datePublished` for this
+     * publication.
+     *
+     * This method should be called by self::publish().
+     *
+     * @hook Publication::unpublish::before [[ &$newPublication, $publication ]]
+     */
+    abstract protected function setStatusOnPublish(Publication $publication);
+
+    /**
+     * Unpublish a publication
+     *
+     * This method performs all actions needed when unpublishing an item, such
+     * as changing the status, logging events, updating the search index, etc.
+     *
+     * @param $submissionStatus
+     *  - PKPSubmission::STATUS_... constant: Set the submission status to the specified constant
+     *  - null: Determine the appropriate status based on the submission and publications
+     *  - false: Do not set the submission status
+     *
+     * @see self::setStatusOnPublish()
+     *
+     * @hook Publication::unpublish::before [[ &$newPublication, $publication ]]
+     */
+    public function unpublish(Publication $publication, false|int|null $submissionStatus = null)
+    {
+        $newPublication = clone $publication;
+        $newPublication->setData('status', Publication::STATUS_QUEUED);
+        $newPublication->stampModified();
+
+        Hook::call(
+            'Publication::unpublish::before',
+            [
+                &$newPublication,
+                $publication
+            ]
+        );
+
+        $this->dao->update($newPublication);
+
+        $newPublication = Repo::publication()->get($newPublication->getId());
+        $submission = Repo::submission()->get($newPublication->getData('submissionId'));
+
+        $wasCurrentPublication = $publication->getId() == $submission->getData('currentPublicationId');
+
+        // Update a submission's status based on the status of its publications
+        if ($newPublication->getData('status') !== $publication->getData('status')) {
+            if ($submissionStatus !== false) {
+                Repo::submission()->updateStatus($submission, $submissionStatus);
+            }
+            Repo::submission()->updateCurrentPublication($submission);
+            $submission = Repo::submission()->get($submission->getId());
+        }
+
+        // Log an event when publication is unpublished. Adjust the message depending
+        // on whether this is the first publication or a subsequent version
+        $msg = 'publication.event.unpublished';
+
+        if (count($submission->getData('publications')) > 1) {
+            $msg = 'publication.event.versionUnpublished';
+        }
+
+        $context = $submission->getData('contextId') === Application::get()->getRequest()->getContext()->getId()
+            ? Application::get()->getRequest()->getContext()
+            : app()->get('context')->get($submission->getData('contextId'));
+
+        // Mark DOIs stale (if applicable).
+        if ($context->getData(Context::SETTING_DOI_VERSIONING)) {
+            // if it was the last published minor version of that version stage and major,
+            // mark the publication's DOIs stale
+            if ($newPublication->getData('versionMinor') != 0) {
+                $lastMinorPublication = Repo::publication()->getCollector()
+                    ->filterBySubmissionIds([$newPublication->getData('submissionId')])
+                    ->filterByVersionStage($newPublication->getData('versionStage'))
+                    ->filterByVersionMajor($newPublication->getData('versionMajor'))
+                    ->filterByStatus([PKPSubmission::STATUS_PUBLISHED])
+                    ->orderByVersion()
+                    ->getMany()
+                    ->last(); // minor versions are sorted ASC, so get only the last
+                if ($lastMinorPublication && (int) $newPublication->getData('versionMinor') > (int) $lastMinorPublication->getData('versionMinor')) {
+                    $staleDoiIds = Repo::doi()->getDoisForPublication($newPublication);
+                    Repo::doi()->markStale($staleDoiIds);
+                }
+            }
+            // if it was a major version or a current minor version
+            if ($newPublication->getData('versionMinor') == 0) {
+                $staleDoiIds = Repo::doi()->getDoisForPublication($newPublication);
+                Repo::doi()->markStale($staleDoiIds);
+            }
+        } elseif ($wasCurrentPublication) {
+            $staleDoiIds = Repo::doi()->getDoisForPublication($newPublication);
+            Repo::doi()->markStale($staleDoiIds);
+        }
+
+        $eventLog = Repo::eventLog()->newDataObject([
+            'assocType' => PKPApplication::ASSOC_TYPE_SUBMISSION,
+            'assocId' => $submission->getId(),
+            'eventType' => PKPSubmissionEventLogEntry::SUBMISSION_LOG_METADATA_UNPUBLISH,
+            'userId' => Validation::loggedInAs() ?? $this->request->getUser()?->getId(),
+            'message' => $msg,
+            'isTranslated' => false,
+            'dateLogged' => Core::getCurrentDate()
+        ]);
+        Repo::eventLog()->add($eventLog);
+
+        Hook::call(
+            'Publication::unpublish',
+            [
+                &$newPublication,
+                $publication,
+                $submission,
+                $wasCurrentPublication
+            ]
+        );
+
+        event(new PublicationUnpublished($newPublication, $publication, $submission, $context));
+    }
+
+    /**
+     * @copydoc DAO::delete()
+     *
+     * @param $submissionStatus
+     *  - PKPSubmission::STATUS_... constant: Set the submission status to the specified constant
+     *  - null: Determine the appropriate status based on the submission and publications
+     *  - false: Do not set the submission status
+     *
+     * @hook Publication::delete::before [[&$publication]]
+     */
+    public function delete(Publication $publication, false|int|null $submissionStatus = null): void
+    {
+        Hook::call('Publication::delete::before', [&$publication]);
+
+        $submission = Repo::submission()->get($publication->getData('submissionId'));
+        $sectionId = $publication->getData(Application::getSectionIdPropName());
+        $section = $sectionId ? Repo::section()->get($sectionId) : null;
+
+        $this->dao->delete($publication);
+
+        // Update a submission's status based on the status of its remaining publications
+        $submission = Repo::submission()->get($publication->getData('submissionId'));
+        if ($submissionStatus !== false) {
+            Repo::submission()->updateStatus($submission, $submissionStatus, $section);
+        }
+        Repo::submission()->updateCurrentPublication($submission);
+
+        Hook::call('Publication::delete', [&$publication]);
+    }
+
+    /**
+     * Given a Version Stage and a flag of whether the Version isMinor,
+     * the publication's related data is being updated
+     *
+     * @hook Publication::updateVersion::before [&$publication, $oldVersion]
+     */
+    public function updateVersion(Publication $publication, VersionStage $versionStage, bool $isMinor = true): Publication
+    {
+        $submission = Repo::submission()->get($publication->getData('submissionId'));
+        $nextAvailableVersion = Repo::submission()->getNextAvailableVersion($submission, $versionStage, $isMinor);
+
+        $oldVersion = $publication->getVersion();
+
+        $publication->setVersion($nextAvailableVersion);
+
+        Hook::run('Publication::updateVersion::before', [&$publication, $oldVersion]);
+
+        $publication->stampModified();
+
+        $this->dao->update($publication);
+
+        return $publication;
+    }
+
+    /**
+     * Get the string that describes the
+     * given publication's version.
+     */
+    public function getVersionString(Publication $publication, ?Submission $submission = null, ?Context $submissionContext = null): string
+    {
+        $currentVersionInfo = $publication->getVersion();
+
+        if (!isset($currentVersionInfo)) {
+            if (!isset($submissionContext)) {
+                if (!isset($submission)) {
+                    $submission = Repo::submission()->get($publication->getData('submissionId'));
+                }
+
+                $submissionContext = app()->get('context')->get($submission->getData('contextId'));
+            }
+
+            $dateFormatShort = PKPString::convertStrftimeFormat($submissionContext->getLocalizedDateFormatShort());
+
+            return __('publication.versionStage.unassignedVersion', [
+                'publicationCreatedDate' => (new \Carbon\Carbon($publication->getData('createdAt')))
+                    ->locale(Locale::getLocale())
+                    ->translatedFormat($dateFormatShort),
+            ]);
+        }
+
+        return (string) $currentVersionInfo;
+    }
+
+    /**
+     * Handle a publication setting for an uploaded file
+     *
+     * - Moves the temporary file to the public directory
+     * - Resets the param value to what is expected to be stored in the db
+     * - If a null value is passed, deletes any existing file
+     *
+     * This method is protected because all operations which edit publications should
+     * go through the add and edit methods in order to ensure that
+     * the appropriate hooks are fired.
+     *
+     * @param Publication $publication The publication being edited
+     * @param Submission $submission The submission this publication is part of
+     * @param mixed $value The param value to be saved. Contains the temporary
+     *  file ID if a new file has been uploaded.
+     * @param string $settingName The name of the setting to save, typically used
+     *  in the filename.
+     * @param int $userId ID of the user who owns the temporary file
+     * @param string $localeKey Optional. Pass if the setting is multilingual
+     * @param bool $isImage Optional. For image files which include alt text in value
+     *
+     * @return string|array|bool New param value or false on failure
+     */
+    protected function _saveFileParam(
+        Publication $publication,
+        Submission $submission,
+        $value,
+        string $settingName,
+        int $userId,
+        string $localeKey = '',
+        bool $isImage = false
+    ) {
+        // If the value is null, delete any existing unused file in the system
+        if (is_null($value)) {
+            $oldPublication = Repo::publication()->get($publication->getId());
+            $oldValue = $oldPublication->getData($settingName, $localeKey);
+            $fileName = $oldValue['uploadName'] ?? null;
+            if ($fileName) {
+                // File may be in use by other publications
+                $fileInUse = false;
+                foreach ($submission->getData('publications') as $iPublication) {
+                    if ($publication->getId() === $iPublication->getId()) {
+                        continue;
+                    }
+                    $iValue = $iPublication->getData($settingName, $localeKey);
+                    if (!empty($iValue['uploadName']) && $iValue['uploadName'] === $fileName) {
+                        $fileInUse = true;
+                        continue;
+                    }
+                }
+                if (!$fileInUse) {
+                    $publicFileManager = new PublicFileManager();
+                    $publicFileManager->removeContextFile($submission->getData('contextId'), $fileName);
+                }
+            }
+            return null;
+        }
+
+        // Check if there is something to upload
+        if (empty($value['temporaryFileId'])) {
+            return $value;
+        }
+
+        // Get the submission context
+        $submissionContext = $this->request->getContext();
+        if ($submissionContext->getId() !== $submission->getData('contextId')) {
+            $submissionContext = app()->get('context')->get($submission->getData('contextId'));
+        }
+
+        $temporaryFileManager = new TemporaryFileManager();
+        $temporaryFile = $temporaryFileManager->getFile((int) $value['temporaryFileId'], $userId);
+        $fileNameBase = join('_', ['submission', $submission->getId(), $publication->getId(), $settingName]); // eg - submission_1_1_coverImage
+        $fileName = app()->get('context')->moveTemporaryFile($submissionContext, $temporaryFile, $fileNameBase, $userId, $localeKey);
+
+        if ($fileName) {
+            if ($isImage) {
+                return [
+                    'altText' => !empty($value['altText']) ? $value['altText'] : '',
+                    'dateUploaded' => Core::getCurrentDate(),
+                    'uploadName' => $fileName,
+                ];
+            } else {
+                return [
+                    'dateUploaded' => Core::getCurrentDate(),
+                    'uploadName' => $fileName,
+                ];
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get error message overrides for the validator
+     */
+    protected function getErrorMessageOverrides(): array
+    {
+        return [
+            'locale.regex' => __('validator.localeKey'),
+            'datePublished.date_format' => __('publication.datePublished.errorFormat'),
+            'urlPath.regex' => __('validator.alpha_dash_period'),
+        ];
+    }
+
+    /**
+     * Assign categories to a publication.
+     *
+     * @param int[] $categoryIds
+     */
+    public function assignCategoriesToPublication(int $publicationId, array $categoryIds): void
+    {
+        $records = array_map(fn ($categoryId) => ['publication_id' => $publicationId, 'category_id' => $categoryId], $categoryIds);
+
+        PublicationCategory::upsert($records, ['publication_id', 'category_id']);
+
+        // delete categories that are no longer assigned
+        PublicationCategory::where('publication_id', $publicationId)
+            ->whereNotIn('category_id', $categoryIds)
+            ->delete();
+    }
+
+    /**
+     * Get all minor versions of the same submission, that have
+     * the same version stage, version major and DOI ID
+     * as the given publication
+     *
+     * @return array<int,T>
+     */
+    public function getMinorVersionsWithSameDoi(Publication $publication): array
+    {
+        return $this->getCollector()
+            ->filterBySubmissionIds([$publication->getData('submissionId')])
+            ->filterByVersionStage($publication->getData('versionStage'))
+            ->filterByVersionMajor($publication->getData('versionMajor'))
+            ->filterByDoiIds([$publication->getData('doiId')])
+            ->getMany()
+            ->all();
+    }
+
+    /**
+     * Get the first DOI object found for minor versions of the same submission,
+     * within the same version stage and version major.
+     */
+    public function getMinorVersionsDoi(Publication $publication): ?Doi
+    {
+        return $this->getCollector()
+            ->filterBySubmissionIds([$publication->getData('submissionId')])
+            ->filterByVersionStage($publication->getData('versionStage'))
+            ->filterByVersionMajor($publication->getData('versionMajor'))
+            ->getMany()
+            ->filter(fn ($publication) => $publication->getData('doiId') != null)
+            ->first()?->getData('doiObject');
+    }
+
+    /**
+     * Create all DOIs associated with the publication.
+     *
+     * @return DoiException[]
+     */
+    abstract public function createDois(Publication $publication): array;
+
+    /**
+     * @copydoc DAO::getVoRMinorVersionsSettingValues()
+     */
+    public function getMinorVersionsSettingValues(int $submissionId, string $versionStage, int $versionMajor, string $settingName): Collection
+    {
+        return $this->dao->getMinorVersionsSettingValues($submissionId, $versionStage, $versionMajor, $settingName);
+    }
+
+    /**
+     * @copydoc DAO::getExportableDOIsSubmissionIds()
+     */
+    public function getExportableDOIsSubmissionIds(int $contextId, bool $doiVersioning): array
+    {
+        return $this->dao->getExportableDOIsSubmissionIds($contextId, $doiVersioning);
+    }
+
+    /**
+     * @copydoc DAO::getClaimedSourcePublicationIds()
+     */
+    public function getClaimedSourcePublicationIds(array $publicationIds): array
+    {
+        return $this->dao->getClaimedSourcePublicationIds($publicationIds);
+    }
+
+    /**
+     * Get public peer review data for publications.
+     *
+     * @param array $publications - The publications to get peer review data for.
+     */
+    public function getPublicPeerReviews(array $publications): Enumerable
+    {
+        $allPublicationIds = collect($publications)->map(fn($p) => $p->getId())->all();
+
+        // Find which publication IDs in this batch are claimed as the source for another publication.
+        // Those publications' own review rounds will be excluded from in their own review data and shown only under the child.
+        $claimedPublicationIds = $this->getClaimedSourcePublicationIds($allPublicationIds);
+
+        return collect($publications)
+            ->map(function ($publication) use ($claimedPublicationIds) {
+                // Call resolve to get the array representation of the data prepared by the resource.
+                // Thus allowing code outside an API context (e.g., page handlers) to use this getPeerReviews method to get peer review data in a consistent shape.
+                return (new PublicationPeerReviewResource($publication))
+                    ->withClaimedPublicationIds($claimedPublicationIds)
+                    ->resolve();
+            })
+            ->values();
+    }
+
+    /**
+     * Retrieve completed review assignments for publications.
+     *
+     *
+     * @throws \Exception
+     *
+     * @return Enumerable Completed Review assignments
+     */
+    public function getCompletedReviewAssignments(array $publicationIds): Enumerable
+    {
+        return Repo::reviewAssignment()
+            ->getCollector()
+            ->filterByPublicationIds($publicationIds)
+            ->filterByCompleted(true)
+            ->getMany();
+    }
+
+    /**
+     * Retrieve author responses associated with review rounds of the specified publications
+     *
+     *
+     * @throws \Exception
+     *
+     * @return Enumerable - Author responses
+     */
+    public function getReviewAuthorResponses(array $publicationIds): Enumerable
+    {
+        /** @var ReviewRoundDAO $reviewRoundDao */
+        $reviewRoundDao = DAORegistry::getDAO('ReviewRoundDAO');
+        $reviewRounds = $reviewRoundDao->getByPublicationIds($publicationIds);
+
+        $reviewRoundsKeyedById = collect($reviewRounds->toArray())->keyBy(fn ($item) => $item->getId());
+        $roundIds = $reviewRoundsKeyedById->keys()->all();
+
+        return AuthorResponse::withReviewRoundIds($roundIds)->get();
+
+    }
+
+    /**
+     * Get review-related DOI data grouped by publication ID.
+     *
+     * @param int[] $publicationIds
+     *
+     * @throws \Exception
+     *
+     * @return array<int, array<array{pubObjectType: string, pubObjectId: int, doiObject: Doi|null}>>
+     */
+    public function getReviewDoiItemsGroupedByPublication(array $publicationIds): array
+    {
+        if (empty($publicationIds)) {
+            return [];
+        }
+
+        /** @var ReviewRoundDAO $reviewRoundDao */
+        $reviewRoundDao = DAORegistry::getDAO('ReviewRoundDAO');
+        $reviewRounds = $reviewRoundDao->getByPublicationIds($publicationIds);
+
+        $roundToPublication = [];
+        foreach ($reviewRounds->toArray() as $round) {
+            $roundToPublication[$round->getId()] = $round->getPublicationId();
+        }
+        $roundIds = array_keys($roundToPublication);
+
+        if (empty($roundIds)) {
+            return array_fill_keys($publicationIds, []);
+        }
+
+        $result = array_fill_keys($publicationIds, []);
+
+        // ReviewAssignments with DOIs
+        $assignments = Repo::reviewAssignment()
+            ->getCollector()
+            ->filterByReviewRoundIds($roundIds)
+            ->filterByCompleted(true)
+            ->getMany();
+
+        foreach ($assignments as $assignment) {
+            $pubId = $roundToPublication[$assignment->getReviewRoundId()] ?? null;
+            if ($pubId !== null) {
+                $result[$pubId][] = [
+                    'pubObjectType' => Repo::doi()::TYPE_PEER_REVIEW,
+                    'pubObjectId' => (int) $assignment->getId(),
+                    'doiObject' => $assignment->getData('doiObject'),
+                ];
+            }
+        }
+
+        // AuthorResponses with DOIs
+        $authorResponses = AuthorResponse::withReviewRoundIds($roundIds)->get();
+
+        foreach ($authorResponses as $response) {
+            $pubId = $roundToPublication[$response->reviewRoundId] ?? null;
+            if ($pubId !== null) {
+                $result[$pubId][] = [
+                    'pubObjectType' => Repo::doi()::TYPE_AUTHOR_RESPONSE,
+                    'pubObjectId' => (int) $response->id,
+                    'doiObject' => $response->doi,
+                ];
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Returns the provided publication ID as well as any other publications
+     * that reference this publication via the `source_publication_id`.
+     */
+    public function getWithSourcePublicationsIds(array $publicationIds): Collection
+    {
+        return $this->getCollector()
+            ->filterByPublicationIds($publicationIds)
+            ->filterWithSourcePublicationIds()
+            ->getIds();
+
+    }
+}

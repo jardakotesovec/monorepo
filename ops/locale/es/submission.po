@@ -1,0 +1,267 @@
+# "Luis M. Montilla" <lmontilla@crossref.org>, 2025.
+# Alex Mendonça <alex.mendonca@scielo.org>, 2025.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-09-24 17:51+0000\n"
+"Last-Translator: Alex Mendonça <alex.mendonca@scielo.org>\n"
+"Language-Team: Spanish <http://translate.pkp.sfu.ca/projects/ops/submissions/"
+"es/>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.18.2\n"
+
+msgid "submission.submit.userGroup"
+msgstr "Envío en mi rol de ..."
+
+msgid "submission.upload.selectComponent"
+msgstr "Seleccionar el componente de preprint"
+
+msgid "submission.title"
+msgstr "Título de preprint"
+
+msgid "submission.submit.newSubmissionSingle"
+msgstr "Nuevo Envío"
+
+msgid "submission.abstract.wordCount.description"
+msgstr "El resumen debe ser {$wordCount} palabras o menos."
+
+msgid "submission.submit.noContext"
+msgstr "No se pudo encontrar el servidor de este envío."
+
+msgid "submission.galleyFiles"
+msgstr "Archivos de galerada"
+
+msgid "submission.upload.fileContents"
+msgstr "Componente de preprint"
+
+msgid "submission.complete"
+msgstr "Aprobado"
+
+msgid "submission.submit.submissionChecklist"
+msgstr "Lista de verificación de envío"
+
+msgid "submission.submit.contributorRole"
+msgstr "Rol del colaborador"
+
+msgid "submission.metadataDescription"
+msgstr ""
+"Estas especificaciones se basan en el conjunto de metadatos Dublin Core, un "
+"estándar internacional utilizado para describir contenido."
+
+msgid "submission.sectionOptions"
+msgstr "Opciones de sección"
+
+msgid "catalog.browseTitles"
+msgstr "{$numTitles} elementos"
+
+msgid "catalog.category.heading"
+msgstr "Todos los artículos"
+
+msgid "galley.editPublishedDisabled"
+msgstr ""
+"Las galeradas de esta publicación no se pueden editar porque ya se ha "
+"postado."
+
+msgid "galley.publicationNotFound"
+msgstr "La publicación de esta galerada no se pudo encontrar."
+
+msgid "publication.invalidSection"
+msgstr "No se pudo encontrar la sección de esta publicación."
+
+msgid "publication.inactiveSection"
+msgstr ""
+
+msgid "preprint.entry"
+msgstr "Entrada de preprint"
+
+msgid "publication.issue.success"
+msgstr "Los detalles de la entrada de preprint se han actualizado."
+
+msgid "publication.datePublished.description"
+msgstr ""
+"La fecha de publicación se establecerá automáticamente cuando se publique el "
+"preprint. No ingrese una fecha de publicación a menos que necesite "
+"antedatarla."
+
+msgid "publication.relation"
+msgstr "Relaciones"
+
+#, fuzzy
+msgid "publication.relation.label"
+msgstr "Enviado para publicación"
+
+msgid "publication.relation.description"
+msgstr ""
+"Por favor indicar si este preprint ha sido publicado o envado para "
+"publicación en otra plataforma."
+
+msgid "publication.relation.none"
+msgstr "El preprint no ha sido enviado para publicación."
+
+msgid "publication.relation.published"
+msgstr "Este preprint ha sido publicado como es otra plataforma."
+
+msgid "publication.relation.vorDoi"
+msgstr "DOI del artículo publicado"
+
+msgid "publication.publish.relationStatus"
+msgstr "Publicación relacioanda"
+
+msgid "publication.publish.relationStatus.none"
+msgstr "Este preprint no ha sido publicado en otra plataforma."
+
+msgid "publication.publish.relationStatus.submitted"
+msgstr ""
+"Este preprint ha sido enviado a una revista o a otra publicaión académica."
+
+msgid "publication.publish.relationStatus.published.noDoi"
+msgstr "Este preprint ha sido publicado, pero no tiene un DOI disponible aún."
+
+msgid "publication.publish.relationStatus.published"
+msgstr ""
+
+#, fuzzy
+msgid "publication.publish.confirmation"
+msgstr ""
+"Se han cumplido todos los requisitos de publicación. ¿Está seguro de que "
+"quiere publicar esto?"
+
+msgid "author.submit.authorsCanNotPublish"
+msgstr ""
+"No puede publicar su propio preprint. Debe ser aprobado y publicado por un "
+"moderador."
+
+msgid "publication.status.published"
+msgstr "Publicado"
+
+msgid "submission.status.scheduled"
+msgstr "Programado"
+
+msgid "publication.status.unscheduled"
+msgstr "Retirado de publicación"
+
+msgid "submission.publication"
+msgstr "Preprint"
+
+msgid "submission.publications"
+msgstr "Preprints"
+
+msgid "publication.copyrightYearBasis.issueDescription"
+msgstr ""
+"El año del copyright se asignará automáticamente cuando esto se publique."
+
+msgid "publication.copyrightYearBasis.submissionDescription"
+msgstr ""
+"El año del copyright se asignará automáticamente basado en la fecha de "
+"publicación."
+
+msgid "publication.datePublished"
+msgstr "Fecha de publicación"
+
+msgid "publication.editDisabled"
+msgstr "Esta versión ha sido publicada y no puede ser editada."
+
+msgid "publication.event.published"
+msgstr "El envío ha sido publicado."
+
+msgid "publication.event.scheduled"
+msgstr "El envío ha sido programado para ser publicado."
+
+msgid "publication.event.unpublished"
+msgstr "El envío ha sido retirado de publicación."
+
+msgid "publication.event.versionPublished"
+msgstr "Una nueva versión se publicó."
+
+msgid "publication.event.versionScheduled"
+msgstr "Una nueva versión se programó para ser publicada."
+
+msgid "publication.event.versionUnpublished"
+msgstr ""
+"Esta versión fue retirada de publicación y ya no está disponible "
+"publicamente."
+
+msgid "publication.invalidSubmission"
+msgstr "El envío para este preprint no pudo encontrarse."
+
+msgid "publication.publish"
+msgstr "Publicación."
+
+msgid "publication.publish.requirements"
+msgstr ""
+"Los siguientes requisitos deben cumplirse antes de que esto pueda publicarse."
+
+msgid "publication.required.declined"
+msgstr "Un envío rechazado no puede publicarse."
+
+msgid "publication.required.reviewStage"
+msgstr ""
+
+msgid "submission.license.description"
+msgstr ""
+
+msgid "submission.copyrightHolder.description"
+msgstr ""
+
+msgid "submission.copyrightOther.description"
+msgstr ""
+
+msgid "publication.unpublish"
+msgstr ""
+
+msgid "publication.unpublish.confirm"
+msgstr ""
+
+msgid "publication.unschedule.confirm"
+msgstr ""
+
+msgid "publication.version.details"
+msgstr ""
+
+#, fuzzy
+msgid "submission.queries.production"
+msgstr ""
+
+msgid "doi.submission.incorrectContext"
+msgstr ""
+
+msgid "submission.layout.viewGalley"
+msgstr ""
+
+msgid "galley.cantEditPublished"
+msgstr ""
+
+msgid "submission.licenseSection.description"
+msgstr ""
+
+msgid "submission.licenseUrl.missing"
+msgstr ""
+
+msgid "submission.submit.complete.canPost"
+msgstr ""
+"Gracias por enviar su preprint. Ahora puede <a href=\"{$workflowUrl}\""
+">postar su preprint</a> públicamente."
+
+msgid "submission.submit.complete.canNotPost"
+msgstr ""
+
+msgid "submission.wizard.confirmSubmit"
+msgstr ""
+
+msgid "submission.wizard.confirmSubmit.canPublish"
+msgstr ""
+
+msgid "submission.wizard.sectionClosed.message"
+msgstr ""
+
+msgid "submission.forTheEditors"
+msgstr ""
+
+msgid "submission.wizard.commentsForTheEditor.description"
+msgstr ""
+
+#~ msgid "preprint.relations"
+#~ msgstr "Relaciones"

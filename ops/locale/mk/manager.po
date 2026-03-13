@@ -1,0 +1,907 @@
+# Teodora Fildishevska <t.fildishevska@gmail.com>, 2021.
+# Emilija Andonoska <emilija-andonoska@hotmail.com>, 2023.
+# Mirko Spiroski <mspiroski@id-press.eu>, 2023, 2025.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-04-02 14:06+0000\n"
+"Last-Translator: Mirko Spiroski <mspiroski@id-press.eu>\n"
+"Language-Team: Macedonian <http://translate.pkp.sfu.ca/projects/ops/manager/"
+"mk/>\n"
+"Language: mk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n==1 || n%10==1 ? 0 : 1;\n"
+"X-Generator: Weblate 4.18.2\n"
+
+msgid "manager.distribution.access"
+msgstr "Пристап"
+
+msgid "manager.distribution.copyrightYearBasis.description"
+msgstr ""
+"Изберете како е избран стандардниот датум за авторско право за печатење. Ова "
+"стандардно може да се замени од случај до случај."
+
+msgid "manager.distribution.copyrightYearBasis.submission"
+msgstr "Користете го датумот за објавување на предпечатот"
+
+msgid "manager.distribution.publishingMode"
+msgstr "Режим на објавување"
+
+msgid "manager.distribution.publishingMode.none"
+msgstr ""
+"OPS нема да се користи за објавување на содржината на серверот на Интернет."
+
+msgid "manager.distribution.publishingMode.openAccess"
+msgstr "Серверот ќе обезбеди отворен пристап до неговата содржина."
+
+msgid "doi.manager.settings.doiSuffixLegacy"
+msgstr ""
+"Користете стандардни обрасци.<br />%j.%a за трудови<br />%j.%a.g%g за "
+"отисоци."
+
+msgid "doi.manager.settings.doiCreationTime.copyedit"
+msgstr "По достигнувањето на фазата на обработка"
+
+msgid "doi.manager.settings.doiVersioning.description"
+msgstr ""
+"Да се додели нова DOI на секоја верзија на публикацијата? Повеќето сервери "
+"за трудови ќе сакаат да ја користат стандардната опција (да) за да се "
+"осигураат дека на верзиите пред издавање се правилно доделени DOI."
+
+msgid "doi.manager.settings.doiVersioning.yes"
+msgstr "Да, доделете единствена DOI на секоја верзија за трудови."
+
+msgid "doi.manager.settings.doiVersioning.no"
+msgstr "Не, сите верзии за трудови треба да имаат ист DOI."
+
+msgid "manager.language.ui"
+msgstr "УИ"
+
+msgid "manager.language.submissions"
+msgstr "Поднесоци"
+
+msgid "manager.language.forms"
+msgstr "Формулари"
+
+msgid "manager.language.confirmDefaultSettingsOverwrite"
+msgstr ""
+"Ова ќе ги замени сите поставки за серверот специфични за локацијата што ги "
+"имавте за оваа локација"
+
+msgid "manager.people.allUsers"
+msgstr "Сите запишани корисници"
+
+msgid "manager.people.confirmRemove"
+msgstr ""
+"Да се отстрани овој корисник од овој сервер? Ова дејство ќе го отпише "
+"корисникот од сите улоги во овој сервер."
+
+msgid "manager.sections.abstractsNotRequired"
+msgstr "Не бара апстракти"
+
+msgid "manager.sections.confirmDelete"
+msgstr "Дали сте сигурни дека сакате трајно да го избришете овој дел?"
+
+msgid "manager.sections.alertDelete"
+msgstr ""
+"Пред да се избрише овој дел, мора да преместите отпечатоци објавени во него "
+"во друг дел."
+
+msgid "manager.sections.create"
+msgstr "Креирај дел"
+
+msgid "manager.sections.editorRestriction"
+msgstr "Предметите можат да ги достават само менаџерите и модераторите."
+
+msgid "manager.sections.confirmDeactivateSection.error"
+msgstr ""
+"Барем еден дел мора да биде активен. Посетете ги поставките за работниот тек "
+"за да ги оневозможите сите поднесоци до овој сервер."
+
+msgid "manager.sections.form.abbrevRequired"
+msgstr "Потребен е скратен наслов за делот"
+
+msgid "manager.setup.form.section.pathRequired"
+msgstr "Потребна е патека за URL за делот"
+
+msgid "manager.sections.identifyType"
+msgstr "Идентификувајте ги ставките објавени во овој дел како (n)"
+
+msgid "manager.sections.identifyTypeExamples"
+msgstr "(На пример итн.)"
+
+msgid "manager.sections.policy"
+msgstr "Политика на дел"
+
+msgid "manager.sections.submissionIndexing"
+msgstr "Нема да бидат вклучени во индексирањето на серверот"
+
+msgid "manager.sections.wordCount"
+msgstr "Број на зборови"
+
+msgid "manager.sections.wordCountInstructions"
+msgstr ""
+"Ограничете го апстрактниот број на зборови за овој дел (0 без ограничување)"
+
+msgid "manager.payment.options.enablePayments"
+msgstr ""
+"Плаќањата ќе бидат овозможени за овој сервер. Имајте предвид дека од "
+"корисниците ќе се бара да се логираат за да вршат плаќања."
+
+msgid "manager.setup"
+msgstr "Поставки на серверот"
+
+msgid "manager.setup.useStyleSheet"
+msgstr "Лист со стил на сервер"
+
+msgid "manager.setup.announcements"
+msgstr "Објави"
+
+msgid "manager.setup.announcementsIntroduction"
+msgstr "Вовед"
+
+msgid "manager.setup.announcementsIntroduction.description"
+msgstr ""
+"Внесете какви било информации што сакате да се појават на вашата страница за "
+"соопштенија."
+
+#, fuzzy
+msgid "manager.setup.authorScreening"
+msgstr "Приклучоци за скринирање на автори"
+
+msgid "manager.setup.disableUserRegistration"
+msgstr "Менаџерот за сервер ќе ги регистрира сите кориснички сметки."
+
+msgid "manager.setup.emailBounceAddress"
+msgstr "Адреса за отскокнување"
+
+msgid "manager.setup.emailBounceAddress.description"
+msgstr ""
+"Било кои е-пораки што не може да се достават, ќе резултираат со порака за "
+"грешка на оваа адреса."
+
+msgid "manager.setup.emailBounceAddress.disabled"
+msgstr ""
+"За да испратите пораки што не може да се достават до адреса за отскокнување, "
+"администраторот на страницата мора да ја овозможи опцијата "
+"<code>allow_envelope_sender</code> во датотеката за конфигурација на "
+"страницата. Може да биде потребна конфигурација на серверот, како што е "
+"наведено во документацијата на OPS."
+
+msgid "manager.setup.emailSignature"
+msgstr "Потпис"
+
+msgid "manager.setup.emailSignature.description"
+msgstr ""
+"Испратените е-пошти што препринт серверот ги испраќа ќе го додадат следниов "
+"потпис на крајот."
+
+msgid "manager.setup.enableAnnouncements.enable"
+msgstr "Овозможете соопштенија"
+
+msgid "manager.setup.enableAnnouncements.description"
+msgstr ""
+"Објавите може да бидат објавени за да ги информираат читателите за новостите "
+"и настаните на серверот. Објавените соопштенија ќе се појават на страницата "
+"Огласи."
+
+msgid "manager.setup.numAnnouncementsHomepage"
+msgstr "Прикажи на почетната страница"
+
+msgid "manager.setup.numAnnouncementsHomepage.description"
+msgstr ""
+"Колку објави треба да се прикажат на почетната страница. Оставете го ова "
+"празно за да не се прикажува ниту еден."
+
+msgid "manager.setup.enableDois.description"
+msgstr ""
+"Дозволете идентификатори на дигитални објекти (DOI) да се доделуваат на дела "
+"објавени на овој сервер."
+
+msgid "doi.manager.settings.doiObjectsRequired"
+msgstr ""
+"Ве молиме, изберете ги предметите на кои треба да се доделат ДОИ. Најмногу "
+"препринт сервери доделуваат ДОИ на препринтите, но можеби вие сакате да "
+"доделите ДОИ и на пробните отисоци."
+
+msgid "manager.setup.enableUserRegistration"
+msgstr "Посетителите можат да регистрираат корисничка сметка со серверот."
+
+msgid "manager.setup.identity"
+msgstr "Идентитет на сервер за печатење"
+
+msgid "manager.setup.information"
+msgstr "Информациja"
+
+msgid "manager.setup.information.description"
+msgstr ""
+"Кратки описи на серверот за библиотекари и потенцијални автори и читатели. "
+"Овие се достапни во страничната лента на страницата кога е додаден блокот со "
+"информации."
+
+msgid "manager.setup.information.forAuthors"
+msgstr "За автори"
+
+msgid "manager.setup.information.forLibrarians"
+msgstr "За библиотекари"
+
+msgid "manager.setup.information.forReaders"
+msgstr "За читатели"
+
+msgid "manager.setup.itemsPerPage"
+msgstr "Предмети по страница"
+
+msgid "manager.setup.itemsPerPage.description"
+msgstr ""
+"Ограничете го бројот на ставки (на пример, поднесоци, корисници или задачи "
+"за уредување) за да ги прикажете во списокот пред да ги прикажете следните "
+"ставки на друга страница."
+
+msgid "manager.setup.serverAbbreviation"
+msgstr "Кратенка на серверот"
+
+msgid "manager.setup.contextSummary"
+msgstr "Резиме на сервер"
+
+msgid "manager.setup.contextAbout"
+msgstr "За серверот"
+
+msgid "manager.setup.contextAbout.description"
+msgstr ""
+"Вклучете какви било информации за вашиот сервер што може да бидат од интерес "
+"за читателите или авторите. Ова може да вклучува ваша политика за отворен "
+"пристап, фокус и обем на серверот, политики за умереност и проверка, "
+"известување за авторски права, обелоденување на спонзорството, историја на "
+"серверот и изјава за приватност."
+
+msgid "manager.setup.contextInitials"
+msgstr "Иницијали на серверот"
+
+msgid "manager.setup.selectCountry"
+msgstr ""
+"Изберете ја земјата во која се наоѓа серверот, или земјата на поштенската "
+"адреса на серверот или издавачката куќа."
+
+msgid "manager.setup.serverThumbnail"
+msgstr "Сликичка за сервер"
+
+msgid "manager.setup.serverThumbnail.description"
+msgstr ""
+"Мало лого или претстава на серверот што може да се користи во списоците на "
+"сервери."
+
+msgid "manager.setup.contextTitle"
+msgstr "Наслов на серверот"
+
+msgid "manager.setup.lists"
+msgstr "Списоци"
+
+msgid "manager.setup.numPageLinks"
+msgstr "Врски со страници"
+
+msgid "manager.setup.numPageLinks.description"
+msgstr ""
+"Ограничете го бројот на врски за прикажување на следните страници во "
+"списокот."
+
+msgid "manager.setup.restrictPreprintAccess"
+msgstr ""
+"Корисниците мора да бидат регистрирани и да се најават за да ја видат "
+"содржината со отворен пристап."
+
+msgid "manager.setup.restrictSiteAccess"
+msgstr ""
+"Корисниците мора да бидат регистрирани и да се најават за да ја видат "
+"страницата на серверот."
+
+msgid "manager.setup.searchEngineIndexing"
+msgstr "Индексирање на пребарувањето"
+
+msgid "manager.setup.searchEngineIndexing.description"
+msgstr ""
+"Помогнете им на пребарувачите како Google да ја откријат и прикажат вашата "
+"страница. Ве охрабруваме да ја доставите вашата на <a href=\"{$sitemapUrl}\" "
+"target=\"_blank\">sitemap</a>."
+
+msgid "manager.setup.searchDescription.description"
+msgstr ""
+"Обезбедете краток опис (50-300 карактери) на серверот што пребарувачите "
+"можат да ги прикажат кога го наведуваат серверот во резултатите од "
+"пребарувањето."
+
+msgid "manager.setup.siteAccess.view"
+msgstr "Пристап до страницата"
+
+msgid "manager.setup.siteAccess.viewContent"
+msgstr "Погледнете ја содржината за печатење"
+
+msgid "manager.setup.sponsoringOrganization"
+msgstr "Спонзорска организација"
+
+msgid "manager.setup.disableSubmissions.description"
+msgstr ""
+"Спречете ги корисниците да испраќаат нови отпечатоци до серверот. Пријавите "
+"може да бидат оневозможени за одделни делови на серверот на страницата за "
+"поставки за<a href=\"{$url}\">server sections</a>."
+
+msgid "manager.setup.disableSubmissions.notAccepting"
+msgstr ""
+"Овој сервер не прифаќа поднесоци во овој момент. Посетете ги поставките за "
+"работниот тек за да дозволите поднесување."
+
+msgid "manager.setup.enableOai"
+msgstr "Овозможете OAI"
+
+msgid "manager.setup.enableOai.description"
+msgstr ""
+"Обезбедете метаподатоци на услуги за индексирање на трети лица преку <a href="
+"\"https://www.openarchives.org/\">Open Archives Initiative</a>."
+
+msgid "manager.setup.userRegistration"
+msgstr "Регистрација на корисник"
+
+msgid "manager.statistics.statistics"
+msgstr "Статистика на серверот"
+
+msgid "manager.statistics.statistics.preprintViews"
+msgstr "Број на прегледи на печатени печати (само за автори)"
+
+msgid "manager.statistics.statistics.count.accept"
+msgstr "Прифати"
+
+msgid "manager.statistics.statistics.count.decline"
+msgstr "Одбиј"
+
+msgid "manager.statistics.statistics.count.revise"
+msgstr "Повторно испрати"
+
+msgid "manager.statistics.statistics.daysToPublication"
+msgstr "Денови дур поднесокот да се објави"
+
+msgid "manager.statistics.statistics.itemsPublished"
+msgstr "Предметите се објавени"
+
+msgid "manager.statistics.statistics.makePublic"
+msgstr ""
+"Проверете ги предметите што ќе им бидат достапни на читателите во About the "
+"Server."
+
+msgid "manager.statistics.statistics.note"
+msgstr ""
+"Забелешка: Процентите за испратени од рецензирани оценки може да не се "
+"додадат до 100%, бидејќи предметите што се повторно испратени се прифаќаат, "
+"одбиваат или се уште се во тек."
+
+msgid "manager.statistics.statistics.numSubmissions"
+msgstr "Вкупно поднесоци"
+
+msgid "manager.statistics.statistics.registeredReaders"
+msgstr "Регистрирани читатели"
+
+msgid "manager.statistics.reports.defaultReport.preprintDownloads"
+msgstr "Преземање преземања на датотеки"
+
+msgid "manager.statistics.reports.defaultReport.preprintAbstract"
+msgstr "Отпечатете ги апстрактните прегледи на страниците"
+
+msgid "manager.statistics.reports.defaultReport.serverIndexPageViews"
+msgstr "Прегледи на главната страница на серверот"
+
+msgid "grid.category.path"
+msgstr "Патека"
+
+msgid "manager.publication.library"
+msgstr "Серверска библиотека со отпечатоци"
+
+msgid "manager.setup.resetPermissions"
+msgstr "Ресетирај дозволи за отпечатоци"
+
+msgid "manager.setup.resetPermissions.confirm"
+msgstr ""
+"Дали сте сигурни дека сакате да ги ресетирате податоците за дозволите за "
+"сите отпечатоци? Оваа одлука не може да се поништи."
+
+msgid "manager.setup.resetPermissions.description"
+msgstr ""
+"Отстранете ја изјавата за авторски права и информации за лиценца за секој "
+"објавен отпечаток, враќајќи ги на тековните стандардни поставки на серверот. "
+"Ова трајно ќе ги отстрани сите претходни информации за авторските права и "
+"лиценцирање прикачени на отпечатоците. Во некои случаи, можеби легално нема "
+"да ви биде дозволено да ја ре-лиценцирате работата што е објавена под "
+"различна лиценца. Ве молиме бидете внимателни кога ја користите оваа алатка "
+"и консултирајте се со правни експерти доколку не сте сигурни кои права ги "
+"поседувате над отпечатоците објавени на вашиот сервер."
+
+msgid "manager.setup.resetPermissions.success"
+msgstr "Дозволите на отпечатоците беа успешно ресетирани."
+
+msgid "grid.genres.title.short"
+msgstr "Компоненти"
+
+msgid "grid.genres.title"
+msgstr "Компоненти на отпечатоци"
+
+msgid "plugins.importexport.common.settings"
+msgstr "Поставки"
+
+msgid "plugins.importexport.common.settings.DOIPluginSettings"
+msgstr "Поставки на ДОИ плагин"
+
+msgid "plugins.importexport.common.export.preprints"
+msgstr "Отпечатоци"
+
+msgid "plugins.importexport.common.missingRequirements"
+msgstr "Не се исполнети барањата за плагинот"
+
+msgid "plugins.importexport.common.error.DOIsNotAvailable"
+msgstr ""
+"За да го користите овој плагин, одете во плагин категоријата \"Јавен "
+"идентификатор\", овозможете и конфигурирајте го ДОИ плагинот и наведете "
+"валиден ДОИ префикс таму."
+
+msgid "plugins.importexport.common.error.pluginNotConfigured"
+msgstr "Плагинот не е целосно поставен."
+
+msgid "plugins.importexport.common.settings.form.password"
+msgstr "Лозинка"
+
+msgid "plugins.importexport.common.status.any"
+msgstr "Било кој статус"
+
+msgid "plugins.importexport.common.status.notDeposited"
+msgstr "Не се депонирани"
+
+msgid "plugins.importexport.common.status.markedRegistered"
+msgstr "Означени како регистрирани"
+
+msgid "plugins.importexport.common.status.registered"
+msgstr "Регистрирани"
+
+msgid "plugins.importexport.common.action"
+msgstr "Акција"
+
+msgid "plugins.importexport.common.action.export"
+msgstr "Експортирај"
+
+msgid "plugins.importexport.common.action.markRegistered"
+msgstr "Означи како регистрирано"
+
+msgid "plugins.importexport.common.action.register"
+msgstr "Регистрирај"
+
+msgid "plugins.importexport.common.validation"
+msgstr "Валидирај го XML пред експортирање и регистрација."
+
+msgid "plugins.importexport.common.error.noObjectsSelected"
+msgstr "Нема одбрани предмети."
+
+msgid "plugins.importexport.common.error.validation"
+msgstr "Не можеа да се конвертираат одбраните предмети."
+
+msgid "plugins.importexport.common.invalidXML"
+msgstr "Невалиден XML:"
+
+msgid "plugins.importexport.common.export.error.outputFileNotWritable"
+msgstr "Излезната датотека {$param} не може да се запише."
+
+msgid "plugins.importexport.common.register.error.mdsError"
+msgstr ""
+"Регистрацијата не беше успешна! Серверот за ДОИ регистрација врати грешка: "
+"'{$param}'."
+
+msgid "plugins.importexport.common.register.success"
+msgstr "Успешна регистрација!"
+
+msgid "plugins.importexport.common.senderTask.warning.noDOIprefix"
+msgstr "Недостасува ДОИ префиксот за серверот со патеката {$path}."
+
+msgid "plugins.importexport.common.error.unknownObjects"
+msgstr "Назначените предмети не беа пронајдени."
+
+msgid "stats.contextStats"
+msgstr "Статистика на серверот"
+
+msgid "stats.context.tooltip.text"
+msgstr "Број на посетители кои ја гледаат страницата со индекс на серверот."
+
+msgid "stats.context.tooltip.label"
+msgstr "За статистиката на серверот"
+
+msgid "stats.context.downloadReport.description"
+msgstr ""
+"Преземете табела CSV/Excel со статистика за користење за овој сервер што "
+"одговара на следните параметри."
+
+msgid "stats.context.downloadReport.downloadContext.description"
+msgstr "Бројот на прегледи на страницата со индекс на серверот."
+
+msgid "stats.context.downloadReport.downloadContext"
+msgstr "Преземање Сервер"
+
+msgid "stats.publications.downloadReport.description"
+msgstr ""
+"Преземете табела CSV/Excel со статистика за користење за трудови што "
+"одговара на следните параметри."
+
+msgid "stats.publications.downloadReport.downloadSubmissions"
+msgstr "Преземете трудови"
+
+msgid "stats.publications.downloadReport.downloadSubmissions.description"
+msgstr "Бројот на апстрактни прегледи и преземања на датотеки за секој труд."
+
+msgid "stats.publicationStats"
+msgstr "Статистички податоци за отпечатокот"
+
+msgid "stats.publications.details"
+msgstr "Детали за отпечатокот"
+
+msgid "stats.publications.none"
+msgstr ""
+"Не беа пронајден отпечатоци со статистички податоци за користење кои "
+"одговараат на овие параметри."
+
+msgid "stats.publications.totalAbstractViews.timelineInterval"
+msgstr "Вкупни прегледи на апстрактот според датум"
+
+msgid "stats.publications.totalGalleyViews.timelineInterval"
+msgstr "Вкупни прегледи на датотеката според датум"
+
+msgid "stats.publications.countOfTotal"
+msgstr "{$count} од {$total} отпечатоци"
+
+msgid "stats.publications.abstracts"
+msgstr "Апстракти"
+
+msgid "manager.setup.notifications.copySubmissionAckPrimaryContact.description"
+msgstr ""
+"Испратете копија на е-поштата за потврда на поднесокот до главното лице за "
+"контакт на овој сервер со отисоци."
+
+msgid ""
+"manager.setup.notifications.copySubmissionAckPrimaryContact.disabled."
+"description"
+msgstr ""
+"Нема назначено главно лице за контакт на овој сервер со отисоци. Можете да "
+"внесете главно лице за контакт во <a href=\"{$url}\">поставките на серверот "
+"со отисоци</a>"
+
+msgid "emailTemplate.variable.context.contextName"
+msgstr "Името на серверот"
+
+msgid "emailTemplate.variable.context.contextUrl"
+msgstr "УРЛ адреста на главната њеб-страница на серверот"
+
+msgid "emailTemplate.variable.context.contactName"
+msgstr "Името на гланото лице за контакт на серверот"
+
+msgid "emailTemplate.variable.context.contextSignature"
+msgstr "Потпис за емаил на серверот за автоматизирани пораки"
+
+msgid "emailTemplate.variable.context.principalContactSignature"
+msgstr "Потписот за автоматска е-пошта на е-поштата на серверот"
+
+msgid "emailTemplate.variable.context.contactEmail"
+msgstr "И-меил адресата на главното лице за контакт на серверот"
+
+msgid "emailTemplate.variable.queuedPayment.itemName"
+msgstr "Името на типот на наплата"
+
+msgid "emailTemplate.variable.queuedPayment.itemCost"
+msgstr "Сумата за наплата"
+
+msgid "emailTemplate.variable.queuedPayment.itemCurrencyCode"
+msgstr "Валутата на сумата за наплата, на пр. USD"
+
+msgid "emailTemplate.variable.site.siteTitle"
+msgstr "Името на њеб-страницата кога е хостиран повеќе од еден сервер"
+
+msgid "mailable.validateEmailContext.name"
+msgstr "Потврдете емаил (регистрација на серверот)"
+
+msgid "mailable.validateEmailContext.description"
+msgstr ""
+"Овој емаил автоматски се испраќа до нов корисник кога ќе се регистрира на "
+"серверот кога поставките бараат да се потврди емаил адресата."
+
+msgid "doi.displayName"
+msgstr "ДОИ"
+
+msgid "doi.manager.displayName"
+msgstr "ДОИ"
+
+msgid "doi.description"
+msgstr ""
+"Овој приклучок овозможува доделување на дигитални идентификатори на предмети "
+"за отпечатоци и отисоците на труд во OPS."
+
+msgid "doi.manager.submissionDois"
+msgstr "DOI на трудот"
+
+msgid "doi.readerDisplayName"
+msgstr "ДОИи"
+
+msgid "doi.manager.settings.description"
+msgstr ""
+"Конфигурирајте го приклучокот DOI за да може да управувате и да користите "
+"DOI во OPS:"
+
+msgid "doi.manager.settings.explainDois"
+msgstr ""
+"Изберете ги објектите за објавување на кои ќе им бидат доделени "
+"идентификатори на дигитални објекти (ДОИ):"
+
+msgid "doi.manager.settings.galleysWithDescription"
+msgstr "Отисоци на трудови, како објавен PDF"
+
+msgid "doi.manager.settings.enableRepresentationDoi"
+msgstr "Отисоци на труд"
+
+msgid "doi.manager.settings.publicationDoiAutoAssign"
+msgstr "Автоматско доделување"
+
+msgid "doi.manager.settings.explainpublicationDoiAutoAssign"
+msgstr "Автоматски доделете ДОИ за следниве објекти кога се креираат:"
+
+msgid "doi.manager.settings.doiPrefix"
+msgstr "Префикс на ДОИ"
+
+msgid "doi.manager.settings.doiPrefixPattern"
+msgstr "Префиксот DOI е задолжителен и мора да биде во форма 10.xxxx."
+
+msgid "doi.manager.settings.doiSuffixPattern"
+msgstr ""
+"Внесете приспособена шема на суфикс за секој тип на публикација. Шемата за "
+"приспособена наставка може да ги користи следните симболи за да генерира "
+"суфикс:<br><br> <code>%j.%a</code> Трудови<br> <code>%j.%a.g%g</code> "
+"Печатарски табаци<br><br> Пазете се дека приспособените обрасци на суфикси "
+"често доведуваат до проблеми со генерирање и депонирање на DOI. Кога "
+"користите приспособена шема на суфикс, внимателно тестирајте дали уредниците "
+"можат да генерираат DOI и да ги депонираат во агенција за регистрација како "
+"Crossref. "
+
+msgid "doi.manager.settings.doiSuffixPattern.example"
+msgstr ""
+"На пример, %j.%a може да создаде ДОИ како што е 10.1234/server_initials.12345"
+
+msgid "doi.manager.settings.doiSuffixPattern.submissions"
+msgstr "за отпечатоци"
+
+msgid "doi.manager.settings.doiSuffixPattern.representations"
+msgstr "за отисоци на труд"
+
+msgid "doi.manager.settings.doiSubmissionSuffixPatternRequired"
+msgstr "Внесете ја шемата за наставки ДОИ за отпечатоци."
+
+msgid "doi.manager.settings.doiRepresentationSuffixPatternRequired"
+msgstr "Внесете ја шемата наставка на DOI за отисоците на труд."
+
+msgid "doi.manager.settings.doiReassign"
+msgstr "Поставете повторно ДОИ"
+
+msgid "doi.manager.settings.doiReassign.description"
+msgstr ""
+"Ако ја промените конфигурацијата DOI, ДОИ што веќе се доделени нема да бидат "
+"засегнати. Откако ќе се зачува конфигурацијата DOI, користете го ова копче "
+"за да ги исчистите сите постојни DOI, така што новите поставки ќе стапат на "
+"сила со постојните објекти."
+
+msgid "doi.manager.settings.doiReassign.confirm"
+msgstr "Дали сте сигурни дека сакате да ги избришете сите постојни ДОИ?"
+
+msgid "doi.manager.settings.doiAssignServerWide"
+msgstr "Доделете ДОИ"
+
+msgid "doi.manager.settings.doiAssignServerWide.description"
+msgstr ""
+"Доделете ДОИ на сите објавени објекти на серверот на кои не им се доделени "
+"ДОИ. Ова дејство не може да се користи со индивидуална конфигурација на "
+"наставки. Ако ја измените конфигурацијата DOI погоре, зачувајте ги промените "
+"пред да започнете со оваа акција. Доделувањето ДОИ може да трае долго, во "
+"зависност од бројот на објавени објекти во серверот."
+
+msgid "doi.manager.settings.doiAssignServerWide.confirm"
+msgstr ""
+"Дали сте сигурни дека сакате да доделите ДОИ на сите објавени објекти на кои "
+"не им се доделени ДОИ?"
+
+msgid "doi.manager.settings.registrationAgency"
+msgstr "Агенција за регистрација"
+
+msgid "doi.manager.settings.registrationAgency.description"
+msgstr ""
+"Ве молиме изберете ја агенцијата за регистрација што сакате да ја користите "
+"при депонирање на DOI."
+
+msgid "doi.manager.settings.registrationAgency.none"
+msgstr "Ништо"
+
+msgid "doi.editor.doi"
+msgstr "ДОИ"
+
+msgid "doi.editor.doi.description"
+msgstr "ДОИ мора да започне со {$prefix}."
+
+msgid "doi.editor.doi.assignDoi"
+msgstr "Додели"
+
+msgid "doi.editor.doiObjectTypeSubmission"
+msgstr "предпечаток"
+
+msgid "doi.editor.doiObjectTypeRepresentation"
+msgstr "отисок на труд"
+
+msgid "doi.editor.customSuffixMissing"
+msgstr "DOI не може да се додели бидејќи недостасува прилагодената наставка."
+
+msgid "doi.editor.missingParts"
+msgstr ""
+"Не можете да генерирате DOI бидејќи на еден или повеќе делови од моделот DOI "
+"недостасуваат податоци."
+
+msgid "doi.editor.patternNotResolved"
+msgstr "ДОИ не може да се додели затоа што содржи нерешена шема."
+
+msgid "doi.editor.canBeAssigned"
+msgstr ""
+"Она што го гледате е преглед на DOI. Изберете го полето за избор и зачувајте "
+"го образецот за да го доделите DOI."
+
+msgid "doi.editor.assigned"
+msgstr "ДОИ е доделен на овој {$pubObjectType}."
+
+msgid "doi.editor.doiSuffixCustomIdentifierNotUnique"
+msgstr ""
+"Дадената наставка ДОИ веќе се користи за друга објавена ставка. Внесете "
+"уникатен додаток ДОИ за секоја ставка."
+
+msgid "doi.editor.clearObjectsDoi"
+msgstr "Исчисти"
+
+msgid "doi.editor.clearObjectsDoi.confirm"
+msgstr "Дали сте сигурни дека сакате да го избришете постојниот ДОИ?"
+
+msgid "doi.editor.assignDoi"
+msgstr "Доделете го ДОИ {$pubId} на овој {$pubObjectType}"
+
+msgid "doi.editor.assignDoi.emptySuffix"
+msgstr "DOI не може да се додели бидејќи недостасува прилагодената наставка."
+
+msgid "doi.editor.assignDoi.pattern"
+msgstr "ДОИ {$pubId} не може да се додели бидејќи содржи нерешена шема."
+
+msgid "doi.editor.assignDoi.assigned"
+msgstr ""
+"DOI {$pubId} е доделен. За да ја уредите DOI, посетете ја <a href=\""
+"{$doiManagementLink}\">страницата за управување со DOI</a>."
+
+msgid "doi.editor.assignDoi.toBeAssigned"
+msgstr "DOI {$pubId} ќе биде доделен при објавувањето."
+
+msgid "doi.editor.missingPrefix"
+msgstr "ДОИ мора да започне со {$doiPrefix}."
+
+msgid "doi.editor.preview.publication"
+msgstr "ДОИ за оваа публикација ќе биде {$doi}."
+
+msgid "doi.editor.preview.publication.none"
+msgstr "ДОИ не е доделен на оваа публикација."
+
+msgid "doi.editor.preview.galleys"
+msgstr "Отисоци на труд: {$galleyLabel}"
+
+msgid "doi.editor.preview.objects"
+msgstr "Предмет"
+
+msgid "api.galley.403.publicationDidNotMatch"
+msgstr "Отисокот што го побаравте не е дел од оваа публикација."
+
+msgid "api.galley.403.canEditPublishedDoi"
+msgstr "Само DOI може да се уредува откако ќе се објави публикација/отисок"
+
+msgid "api.issue.400.invalidDoi"
+msgstr "Поднесениот DOI не е валиден"
+
+msgid "api.issue.403.canEditPublishedDoi"
+msgstr "Само DOI може да се уредува по објавувањето на трудот"
+
+msgid "manager.institutions.noContext"
+msgstr "Не можеше да се најде списанието на оваа институција."
+
+msgid "manager.manageEmails.description"
+msgstr "Уредете ги пораките испратени во емаил од ова списание."
+
+msgid "mailable.postedAck.name"
+msgstr "Објавено признание"
+
+msgid "mailable.postedAck.description"
+msgstr ""
+"Кога е овозможена оваа е-пошта автоматски се испраќа до авторот кога "
+"отпечатокот е објавен онлајн на серверот."
+
+msgid "mailable.editorAssigned.name"
+msgstr "Доделен модератор (Автоматски)"
+
+msgid "mailable.editorAssigned.description"
+msgstr ""
+"Овој емаил се испраќа до модератор кога автоматски ќе се доделат на поднесок."
+
+msgid "manager.preprintPosted"
+msgstr "Објавен труд"
+
+msgid "manager.preprintPosted.description"
+msgstr ""
+"Конфигурирајте ги известувањата по емаил да се испраќаат кога ќе се објави "
+"нов труд."
+
+msgid "manager.preprintPosted.fieldDescription"
+msgstr "Дали да се испрати или не емаил до авторите на трудоте кога е објавен."
+
+msgid "mailable.publicationVersionNotify.name"
+msgstr "Создадена е нова верзија"
+
+msgid "mailable.publicationVersionNotify.description"
+msgstr ""
+"Овој емаил автоматски ги известува доделените модератори кога ќе се креира "
+"нова верзија на трудот."
+
+msgid "mailable.submissionAck.name"
+msgstr "Потврда за поднесување (Во очекување на модерирање)"
+
+msgid "mailable.submissionAck.description"
+msgstr ""
+"Овој емаил автоматски се испраќа до авторот кога ќе поднесе поднесок и "
+"модераторот мора да го одобри."
+
+msgid "mailable.submissionAckCanPost.name"
+msgstr "Потврда за поднесување (не е потребна модерација)"
+
+msgid "mailable.submissionAckCanPost.description"
+msgstr ""
+"Овој емаил автоматски се испраќа до авторот кога ќе поднесе труд и не е "
+"потребна модерација. Авторот може веднаш да го објави својот труд."
+
+msgid "manager.setup.workflow.forTheEditorsHelp.description"
+msgstr ""
+"Следното им се прикажува на авторите за време на чекорот За читатели, кога "
+"од нив се бара да дадат метаподатоци како клучни зборови, информации за "
+"лиценцирање и други податоци за да помогнат во контролата и контекстот."
+
+msgid "mailable.postedNewVersionAck.name"
+msgstr "Објавена нова верзија"
+
+msgid "mailable.postedNewVersionAck.description"
+msgstr ""
+"Овој емаил се испраќа до авторот кога ќе биде објавена нова верзија на "
+"неговиот труд."
+
+msgid "mailable.decision.initialDecline.notifyAuthor.name"
+msgstr "Подесокот е одбиен"
+
+msgid "mailable.decision.initialDecline.notifyAuthor.description"
+msgstr ""
+"Овој емаил го известува авторот дека неговиот труд е одбиен и нема да биде "
+"објавен."
+
+#~ msgid "doi.manager.settings.enablePublicationDoi"
+#~ msgstr "Отпечатоци"
+
+msgid "mailable.decision.accept.notifyAuthor.description"
+msgstr ""
+"Овој емаил го известува авторот дека неговиот труд е прифатен за објавување."
+
+msgid "mailable.statisticsReportNotify.description"
+msgstr ""
+"Овој емаил автоматски се испраќа месечно до модераторите и менаџерите на "
+"серверите за да им се обезбеди преглед на системот."
+
+msgid "emailTemplate.variable.context.mailingAddress"
+msgstr "Поштенската адреса на серверот"
+
+msgid "emailTemplate.variable.statisticsReportNotify.publicationStatsLink"
+msgstr "Линк до страницата за статистика за трудот"
+
+msgid "manager.setup.contextSummary.description"
+msgstr ""
+"Понуди краток опис на вашиот сервер за да овозможиш увид во содржина и "
+"намера."
