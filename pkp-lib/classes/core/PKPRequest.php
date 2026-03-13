@@ -202,6 +202,20 @@ class PKPRequest
     }
 
     /**
+     * Get the base URL for app-local static files.
+     * In monorepo mode, includes the app prefix (e.g., http://host/ojs).
+     * In standalone mode, identical to getBaseUrl().
+     */
+    public function getAppBaseUrl(bool $allowProtocolRelative = false): string
+    {
+        $baseUrl = $this->getBaseUrl($allowProtocolRelative);
+        if (defined('PKP_APPLICATION')) {
+            return $baseUrl . '/' . PKP_APPLICATION;
+        }
+        return $baseUrl;
+    }
+
+    /**
      * Get the base path of the request (excluding trailing slash).
      *
      * @hook Request::getBasePath [[&$this->_basePath]]

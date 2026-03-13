@@ -93,7 +93,7 @@ class CoverHandler extends PKPHandler
 
         $coverImageUrl = $submission->getCurrentPublication()->getLocalizedCoverImageUrl($submission->getData('contextId'));
         if (!$coverImageUrl) {
-            $coverImageUrl = $request->getBaseUrl() . '/templates/images/book-default.png';
+            $coverImageUrl = $request->getAppBaseUrl() . '/templates/images/book-default.png';
         }
 
         // Can't use Request::redirectUrl; FireFox doesn't
@@ -113,7 +113,7 @@ class CoverHandler extends PKPHandler
 
         $coverImageThumbnailUrl = $submission->getCurrentPublication()->getLocalizedCoverImageThumbnailUrl($submission->getData('contextId'));
         if (!$coverImageThumbnailUrl) {
-            $coverImageThumbnailUrl = $request->getBaseUrl() . '/templates/images/book-default_t.png';
+            $coverImageThumbnailUrl = $request->getAppBaseUrl() . '/templates/images/book-default_t.png';
         }
 
         // Can't use Request::redirectUrl; FireFox doesn't

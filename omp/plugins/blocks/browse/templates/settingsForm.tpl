@@ -8,7 +8,7 @@
  * Browse block plugin settings
  *
  *}
-<script src="{$baseUrl}/{$pluginJavaScriptPath}/BrowseBlockSettingsFormHandler.js"></script>
+<script src="{$appBaseUrl}/{$pluginJavaScriptPath}/BrowseBlockSettingsFormHandler.js"></script>
 <script>
 	$(function() {ldelim}
 		// Attach the form handler.

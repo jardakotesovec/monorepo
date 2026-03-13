@@ -215,6 +215,8 @@ class PKPTemplateManager extends Smarty
         $this->assign([
             'defaultCharset' => 'utf-8',
             'baseUrl' => $request->getBaseUrl(),
+            'appBaseUrl' => $request->getAppBaseUrl(),
+            'pkpLibUrlPath' => PKP_LIB_URL_PATH,
             'currentContext' => $currentContext,
             'currentLocale' => $locale,
             'currentLocaleLangDir' => Locale::getMetadata($locale)?->isRightToLeft() ? 'rtl' : 'ltr',

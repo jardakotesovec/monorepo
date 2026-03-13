@@ -61,7 +61,7 @@ class Publication extends PKPPublication
         $coverImage = $this->getData('coverImage', $preferredLocale);
 
         if (!$coverImage) {
-            return Application::get()->getRequest()->getBaseUrl() . '/templates/images/book-default.png';
+            return Application::get()->getRequest()->getAppBaseUrl() . '/templates/images/book-default.png';
         }
 
         $publicFileManager = new PublicFileManager();
@@ -85,7 +85,7 @@ class Publication extends PKPPublication
         $coverImage = $this->getLocalizedData('coverImage', $preferredLocale);
 
         if (!$coverImage) {
-            return Application::get()->getRequest()->getBaseUrl() . '/templates/images/book-default.png';
+            return Application::get()->getRequest()->getAppBaseUrl() . '/templates/images/book-default.png';
         }
 
         $publicFileManager = new PublicFileManager();

@@ -11,7 +11,7 @@
 
 <div id="description">{translate key="plugins.pubIds.urn.manager.settings.description"}</div>
 
-<script src="{$baseUrl}/plugins/pubIds/urn/js/URNSettingsFormHandler.js"></script>
+<script src="{$appBaseUrl}/plugins/pubIds/urn/js/URNSettingsFormHandler.js"></script>
 <script>
 	$(function() {ldelim}
 		// Attach the form handler.

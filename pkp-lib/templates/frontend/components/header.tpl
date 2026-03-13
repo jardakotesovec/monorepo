@@ -58,7 +58,7 @@
 						<a href="{$homeUrl}" class="is_text">{$displayPageHeaderTitle|escape}</a>
 					{else}
 						<a href="{$homeUrl}" class="is_img">
-							<img src="{$baseUrl}/templates/images/structure/logo.png" alt="{$applicationName|escape}" title="{$applicationName|escape}" width="180" height="90" />
+							<img src="{$appBaseUrl}/templates/images/structure/logo.png" alt="{$applicationName|escape}" title="{$applicationName|escape}" width="180" height="90" />
 						</a>
 					{/if}
 					</div>

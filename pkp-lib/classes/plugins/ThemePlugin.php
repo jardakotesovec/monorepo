@@ -957,7 +957,7 @@ abstract class ThemePlugin extends LazyLoadPlugin
         // Register Chart.js on the frontend article view
         $templateMgr->addJavaScript(
             'chartJS',
-            $request->getBaseUrl() . '/js/build/chart.js/chart.umd.js',
+            $request->getAppBaseUrl() . '/js/build/chart.js/chart.umd.js',
             [
                 'contexts' => $this->getSubmissionViewContext(),
             ]

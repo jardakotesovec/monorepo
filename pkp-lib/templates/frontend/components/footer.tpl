@@ -41,7 +41,7 @@
 
 		<div class="pkp_brand_footer">
 			<a href="{url page="about" op="aboutThisPublishingSystem"}">
-				<img alt="{translate key="about.aboutThisPublishingSystem"}" src="{$baseUrl}/{$brandImage}">
+				<img alt="{translate key="about.aboutThisPublishingSystem"}" src="{$appBaseUrl}/{$brandImage}">
 			</a>
 		</div>
 	</div>
